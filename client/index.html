@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>CloudDrive</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body>
+    <!-- Create directory dialog -->
+    <div class="modal fade" role="dialog" tabindex="-1" id="create-directory-dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Insert directory name</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" id="directory-name-box">
+                </div>
+                <div class="modal-footer">
+                    <button class="material-button" id="confirm-create-directory-button" type="button" data-bs-dismiss="modal">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contextual menu for a file -->
+    <div class="modal fade" role="dialog" tabindex="-1" id="file-contextual-menu">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="file-contextual-menu-title">File</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-footer">
+                    <button class="material-button" id="download-file-button">Download</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upload file dialog -->
+    <div class="modal fade" role="dialog" tabindex="-1" id="upload-file-dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Upload file</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input id="file-to-upload" type="file"/>
+                    <progress id="upload-progress-bar" value="0" max="100" style="width: 100%;"></progress>
+                </div>
+                <div class="modal-footer">
+                    <button class="material-button" id="confirm-upload-file-button" type="button">Upload</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main screen -->
+    <div class="container max-width">
+        <div class="col-md-12 header-column">
+            <div class="row">
+                <div class="col wrap-content">
+                    <h1 class="app-name">CloudDrive</h1>
+                </div>
+                <div class="col">
+                    <button class="material-button" id="create-directory-button">Create directory</button>
+                    <button class="material-button" id="upload-file-button">Upload file</button>
+                    <button class="material-button" id="delete-selected-button">Delete selected</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container max-width file-item-container" id="file-button-container"></div>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/components/MaterialButton.js"></script>
+    <script src="assets/js/components/FileItem.js"></script>    
+    <script src="assets/js/components/UploadHandler.js"></script>
+    <script src="assets/js/components/SessionHandler.js"></script>
+    <script src="assets/js/components/DeleteQueue.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>
