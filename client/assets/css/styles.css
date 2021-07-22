@@ -1,0 +1,66 @@
+  .app-name {
+    color: gray;
+    font-family: inherit;
+    max-width: min-content;
+    font-size: 36px;
+    font-weight: 600;
+    background-color: white;
+    border-radius: 30px;
+    padding: 10px;
+  }
+  
+  .max-width {
+    max-width: 100%;
+  }
+  
+  .wrap-content {
+    max-width: min-content;
+  }
+  
+  .header-column {
+    background: rgb(208,208,208);
+    border-width: 0px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    padding-left: 10px;
+    padding: 10px;
+    padding-right: 10px;
+  }
+  
+  .material-button {
+    background-color: white;
+    color: #333333;
+    border-radius: 30px;
+    border-color: transparent;
+    box-shadow: 0px 0px 10px 0.5px gray;
+    padding: 10px;
+    white-space: nowrap;
+    font-weight: 600;
+    transition: box-shadow 0.3s ease;
+    margin: 10px;
+  }
+
+.material-button:hover {
+    box-shadow: 0px 0px 15px 2px gray;
+    color: black;
+}
+
+.file-item {
+  width: 150px;
+  border-radius: 15px;
+}
+
+.file-item-selected {
+  background-color: cornflowerblue;
+}
+
+
+.file-item-container {
+  text-align: center;
+}
+
+.modal-content  {
+  border-radius: 15px; 
+}
