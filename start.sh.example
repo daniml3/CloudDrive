@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# ---- START OF THE CONFIGURATION SECTION
+
+# CLOUDDRIVE_PORT -> the port where the client and the server will listen
+# CLOUDDRIVE_STORAGE -> the directory to use as storage
+
+export CLOUDDRIVE_PORT=3333
+export CLOUDDRIVE_STORAGE=/storage/
+
+# ---- END OF THE CONFIGURATION SECTION
+
+if [[ ! -d "server" ]]; then
+    echo "Missing server directory"
+    exit 1
+fi
+
+cd server
+
+if [[ $(which npm) == "" ]]; then
+    echo "Missing NPM, couldn't verify the dependencies"
+    echo "Install NPM and run this script again"
+    exit 1
+fi
+
+echo "Checking dependencies"
+
+npm install
+error=$?
+
+if [ ! $error -eq 0 ]; then
+    echo "Something went wrong"
+    exit $error
+fi
+
+echo "Finished checking dependencies, starting the server"
+
+node server.js
