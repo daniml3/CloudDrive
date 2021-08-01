@@ -28,20 +28,26 @@ class UploadHandler {
         }, false);
         request.onreadystatechange = function() {
             if (request.readyState === XMLHttpRequest.DONE) {
-                if (handler.start + handler.chunkSize > file.size) {
-                    handler.chunkSize = file.size - handler.start;
-                    handler.lastChunk = true;
-                    handler.setProgress(100);
-                    setTimeout(function() {
-                        $("#upload-file-dialog").modal("hide");
-                        document.getElementById("file-to-upload").disabled = false;
-                    }, 1000);
+                var response = JSON.parse(request.responseText);
+                if (response["error"]) {
+                    document.getElementById("error-message").innerHTML = response["errorMessage"];
+                    $("#error-dialog").modal("show");
                 } else {
-                    handler.lastChunk = false;
-                    handler.start += handler.chunkSize;
-                }
-                if (handler.start < file.size && !handler.lastChunk) {
-                    handler.sendChunk();
+                    if (handler.start + handler.chunkSize > file.size) {
+                        handler.chunkSize = file.size - handler.start;
+                        handler.lastChunk = true;
+                        handler.setProgress(100);
+                        setTimeout(function() {
+                            $("#upload-file-dialog").modal("hide");
+                            document.getElementById("file-to-upload").disabled = false;
+                        }, 1000);
+                    } else {
+                        handler.lastChunk = false;
+                        handler.start += handler.chunkSize;
+                    }
+                    if (handler.start < file.size && !handler.lastChunk) {
+                        handler.sendChunk();
+                    }
                 }
             }
         }
