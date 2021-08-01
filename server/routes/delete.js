@@ -37,6 +37,13 @@ module.exports = function (app) {
             targetPath = generatedForm["targetPath"];
             isFile = generatedForm["isFile"];
 
+            if (targetPath.includes("..")) {
+                response["error"] = true;
+                response["errorMessage"] = "Illegal request";
+                res.send(response);
+                return;
+            }
+
             var directory = global.fileStorage + "/" + targetPath;
             response["error"] = false;
 

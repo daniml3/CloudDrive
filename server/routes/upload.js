@@ -40,6 +40,14 @@ module.exports = function (app) {
             try {
                 for (i = 0; i < Object.keys(files).length; i++) {
                     var targetDirectory = generatedForm["targetDirectory"];
+
+                    if (targetDirectory.includes("..")) {
+                        response["error"] = true;
+                        response["errorMessage"] = "Illegal request";
+                        res.send(response);
+                        return;
+                    }
+
                     var file = Object.values(files)[i][0];
                     var filename = generatedForm["filename"];
                     var origin = file["path"];
