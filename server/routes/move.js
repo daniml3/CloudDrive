@@ -20,7 +20,7 @@ module.exports = function (app) {
             }
 
             for (i = 0; i < Object.keys(fields).length; i++) {
-                generatedForm[Object.keys(fields)[i]] = Object.values(fields)[i];
+                generatedForm[Object.keys(fields)[i]] = Object.values(fields)[i][0];
             }
 
             for (i = 0; i < neededFormKeys.length; i++ ) {
