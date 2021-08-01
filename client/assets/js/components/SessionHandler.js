@@ -29,34 +29,44 @@ class SessionHandler {
         request.open("POST", this.APICall("/readdir"));
         request.onreadystatechange = function () {
             if (request.readyState === XMLHttpRequest.DONE) {
-                if (request.status == 200 && !(handler.skipAutoViewGeneration && shouldReSchedule)) {
-                    var fileList = JSON.parse(request.responseText)["fileList"];
+                if (!(handler.skipAutoViewGeneration && shouldReSchedule)) {
+                    var response = JSON.parse(request.responseText);
+                    if (request.status == 200 && response["error"]) {
+                        document.getElementById("error-message").innerHTML = response["errorMessage"];
+                        $("#error-dialog").modal("show");
+                        handler.enterDirectory("/");
+                    } else if (request.status != 200) {
+                        document.getElementById("error-message").innerHTML = "Failed to connect to the server";
+                        $("#error-dialog").modal("show");
+                    } else {
+                        var fileList = response["fileList"];
 
-                    if (JSON.stringify(handler.lastFileList) != JSON.stringify(fileList)
-                        || handler.pendingViewRegen) {
-                        handler.pendingViewRegen = false;
-                        handler.createEmptyFileButtonList();
-                        container.innerHTML = "";
-                        handler.lastFileList = fileList;
-                        var parentAvailable = JSON.parse(request.responseText)["parentAvailable"];
-                        if (parentAvailable) {
-                            var item = new FileItem("..", "", false, handler);
-                            item.directory = handler.getParentDirectory();
-                            item.setIcon("assets/img/folder.svg");
-                            item.disableSelected = true;
+                        if (JSON.stringify(handler.lastFileList) != JSON.stringify(fileList)
+                            || handler.pendingViewRegen) {
+                            handler.pendingViewRegen = false;
+                            handler.createEmptyFileButtonList();
+                            container.innerHTML = "";
+                            handler.lastFileList = fileList;
+                            var parentAvailable = JSON.parse(request.responseText)["parentAvailable"];
+                            if (parentAvailable) {
+                                var item = new FileItem("..", "", false, handler);
+                                item.directory = handler.getParentDirectory();
+                                item.setIcon("assets/img/folder.svg");
+                                item.disableSelected = true;
 
-                            container.appendChild(item.get());
-                        }
+                                container.appendChild(item.get());
+                            }
 
-                        for (var i = 0; i < fileList.length; i++) {
-                            var fileData = fileList[i];
-                            var filename = fileData["name"];
-                            var isFile = fileData["isFile"];
-                            var item = new FileItem(filename, "", isFile, handler);
-                            item.directory = handler.getAbsoluteDirectory(filename);
-                            item.register();
+                            for (var i = 0; i < fileList.length; i++) {
+                                var fileData = fileList[i];
+                                var filename = fileData["name"];
+                                var isFile = fileData["isFile"];
+                                var item = new FileItem(filename, "", isFile, handler);
+                                item.directory = handler.getAbsoluteDirectory(filename);
+                                item.register();
 
-                            container.appendChild(item.get());
+                                container.appendChild(item.get());
+                            }
                         }
                     }
                 }
