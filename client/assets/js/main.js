@@ -21,6 +21,15 @@ window.onload = function() {
 
         var request = new XMLHttpRequest();
         request.open("POST", sessionHandler.APICall("/mkdir"));
+        request.onreadystatechange = function () {
+            if (request.readyState === XMLHttpRequest.DONE) {
+                var response = JSON.parse(request.responseText);
+                if (response["error"]) {
+                    document.getElementById("error-message").innerHTML = response["errorMessage"];
+                    $("#error-dialog").modal("show");
+                }
+            }
+        }
         request.send(formData);
 
         document.getElementById("directory-name-box").value = "";
