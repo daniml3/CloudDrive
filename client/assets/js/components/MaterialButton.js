@@ -10,10 +10,11 @@ class MaterialButton {
         this.text = content;
 
         this.childIcon = document.createElement("img");
-        this.childIcon.draggable = false;
+        this.childIcon.className = "unclickable unselectable";
         this.object.append(this.childIcon);
 
         this.childText = document.createElement("p");
+        this.childText.className = "unclickable unselectable";
 
         if (this.text.length > this.maxLength) {
            while (this.text.length > this.maxLength - 3) {
@@ -26,6 +27,10 @@ class MaterialButton {
         this.childText.innerHTML = this.text;
         this.childText.after(this.childIcon);
         this.object.append(this.childText);
+
+        this.childIcon.draggable = false;
+        this.childText.draggable = false;
+        this.draggable = false;
 
         return this;
     }
