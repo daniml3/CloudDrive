@@ -63,3 +63,7 @@
 .modal-content  {
   border-radius: 15px;
 }
+
+input[type=text] {
+  width: 100%;
+}
