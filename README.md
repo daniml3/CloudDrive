@@ -3,6 +3,11 @@
 
 ### A simple (yet powerful) web file server
 
+## Preview
+
+![Preview](assets/preview.png)
+
+
 ## Table of contents
 * [Installation and configuration](#installation-and-configuration)
 * [Documentation](#documentation)
