@@ -12,7 +12,7 @@ class SessionHandler {
             this.serverAddress = this.serverAddress.slice(0, -1)
         }
 
-        this.currentDirectory = "/";
+        this.enterDirectory("/");
     }
 
     generateItemViews() {
@@ -71,6 +71,7 @@ class SessionHandler {
 
                                 container.appendChild(tooltip);
                             }
+                            document.getElementById("current-directory-text").innerHTML = handler.currentDirectory;
                         }
                     }
                 }
