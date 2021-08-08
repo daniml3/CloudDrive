@@ -18,6 +18,7 @@
 3- This repository contains a base start script (`start.sh.example`). Copy it to the file `start.sh` (or any other name you wish, but keep in mind that `start.sh` will be ignored by Git by default. For simplicity, the documentation will always use the name `start.sh`). Then, edit its contents as follows:
 * Set the exported variable CLOUDDRIVE_PORT to the desired port (or leave it on the default value).
 * Set the exported variable CLOUDDRIVE_STORAGE to the directory that will act as root for the storage.
+* Set the exported variable CLOUDDRIVE_TEMP_STORAGE to the directory that will hold the uploaded files temporarily until the upload is complete.
 
 4- Once the variables are configured, it's time to run the app with the command `./start.sh`. This will install the needed dependencies with `npm` and run the app on the specified port (make sure that the script has execution permissions (`chmod +x ./start.sh`)).
 
