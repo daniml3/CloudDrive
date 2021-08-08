@@ -10,15 +10,23 @@ global.fileStorage = process.env.CLOUDDRIVE_STORAGE ||  __dirname + "/" + "./fil
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+global.INFO = "INFO";
+global.WARNING = "WARNING";
+global.ERROR = "ERROR";
+
+global.LOG = function (level, text) {
+    console.log("[" + level + "]: " + text);
+}
+
 app.listen(global.port, () => {
-    console.log("We are live on " + port);
-    console.log("Storage directory at " + global.fileStorage);
+    global.LOG(INFO, "We are live on " + port);
+    global.LOG(INFO, "Storage directory at " + global.fileStorage);
 });
 
 app.use(express.static("../client/"));
 
 var routeList = fs.readdirSync("./routes/");
 for (i = 0; i < routeList.length; i++) {
-    console.log("Loading route " + routeList[i]);
+    global.LOG(INFO, "Loading route " + routeList[i]);
     require("./routes/" + routeList[i].split(".")[0])(app);
 }

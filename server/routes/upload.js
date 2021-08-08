@@ -26,7 +26,7 @@ module.exports = function (app) {
             for (i = 0; i < neededFormKeys.length; i++ ) {
                 var key = neededFormKeys[i];
                 if (!generatedForm[key]) {
-                    console.log("Missing form key " + key);
+                    global.LOG(global.ERROR, "Missing form key " + key);
                     response["error"] = true;
                     response["errorMessage"] = "Missing form key " + key;
                     res.send(response);
@@ -42,6 +42,8 @@ module.exports = function (app) {
                     var targetDirectory = generatedForm["targetDirectory"];
 
                     if (targetDirectory.includes("..")) {
+                        global.LOG(global.WARNING, "Tried to perform an illegal operation "
+                                   + "(tried to access to the directory " + targetDirectory + ")");
                         response["error"] = true;
                         response["errorMessage"] = "Illegal request";
                         res.send(response);
@@ -53,8 +55,7 @@ module.exports = function (app) {
                     var origin = file["path"];
                     var target = global.fileStorage + targetDirectory + "/";
 
-                    console.log("Receiving the file " + filename);
-                    console.log(origin);
+                    global.LOG(global.INFO, "Receiving the file " + filename);
                     var fs = require('fs');
 
                     try {
@@ -64,16 +65,16 @@ module.exports = function (app) {
                         }
                     } catch (err) {}
                     if (isInitialChunk == "true") {
-                        console.log("Receiving initial chunk for file " + filename);
+                        global.LOG(global.INFO, "Receiving initial chunk for file " + filename);
                         fs.copyFileSync(origin, target + filename);
                     } else {
-                        console.log("Receiving chunk for file " + filename);
+                        global.LOG(global.INFO, "Receiving chunk for file " + filename);
                         data = fs.readFileSync(origin);
                         fs.appendFileSync(target + filename, data);
                     }
                 }
             } catch (err) {
-                console.log(err);
+                global.LOG(global.ERROR, err);
                 response["error"] = true;
                 response["errorMessage"] = "Failed to copy the file(s)";
             }
