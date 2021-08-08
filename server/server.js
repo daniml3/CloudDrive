@@ -6,6 +6,7 @@ var app = express();
 
 global.port = process.env.CLOUDDRIVE_PORT || 3000;
 global.fileStorage = process.env.CLOUDDRIVE_STORAGE ||  __dirname + "/" + "./files/";
+global.tempFileStorage = process.env.CLOUDDRIVE_TEMP_STORAGE || __dirname + "/" + "./temporal/";
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -22,6 +23,7 @@ global.LOG = function (level, text) {
 app.listen(global.port, () => {
     global.LOG(INFO, "We are live on " + port);
     global.LOG(INFO, "Storage directory at " + global.fileStorage);
+    global.LOG(INFO, "Temporal storage directory at " + global.tempFileStorage);
 });
 
 app.use(express.static("../client/"));

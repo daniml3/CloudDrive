@@ -21,6 +21,7 @@ class UploadHandler {
         formData.append("targetDirectory", sessionHandler.currentDirectory);
         formData.append("filename", file.name);
         formData.append("isInitialChunk", (handler.start == 0));
+        formData.append("isLastChunk", handler.isLastChunk(file));
 
         request.open("POST", sessionHandler.APICall("/upload"));
         request.upload.addEventListener("progress", function (event) {
@@ -33,7 +34,7 @@ class UploadHandler {
                     document.getElementById("error-message").innerHTML = response["errorMessage"];
                     $("#error-dialog").modal("show");
                 } else {
-                    if (handler.start + handler.chunkSize > file.size) {
+                    if (handler.isLastChunk(file)) {
                         handler.chunkSize = file.size - handler.start;
                         handler.lastChunk = true;
                         handler.setProgress(100);
@@ -52,6 +53,10 @@ class UploadHandler {
             }
         }
         request.send(formData);
+    }
+
+    isLastChunk(file) {
+        return (this.start + this.chunkSize > file.size);
     }
 
     setProgress(progress) {
