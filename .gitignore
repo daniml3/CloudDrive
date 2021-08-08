@@ -1,5 +1,6 @@
 server/node_modules/
 server/package-lock.json
 server/files/
+server/temporal/
 
 start.sh

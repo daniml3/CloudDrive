@@ -1,7 +1,7 @@
 var multiparty = require("multiparty");
 var fs = require("fs");
 
-const neededFormKeys = ["targetDirectory"];
+const neededFormKeys = ["targetDirectory", "isInitialChunk", "isLastChunk"];
 
 module.exports = function (app) {
     app.post("/upload", function (req, res) {
@@ -11,6 +11,7 @@ module.exports = function (app) {
             var response = {};
             var filename;
             var isInitialChunk;
+            var isLastChunk;
 
             if (!fields) {
                 response["error"] = true;
@@ -35,6 +36,7 @@ module.exports = function (app) {
             }
 
             isInitialChunk = generatedForm["isInitialChunk"];
+            isLastChunk = generatedForm["isLastChunk"];
 
             response["error"] = false;
             try {
@@ -53,10 +55,7 @@ module.exports = function (app) {
                     var file = Object.values(files)[i][0];
                     var filename = generatedForm["filename"];
                     var origin = file["path"];
-                    var target = global.fileStorage + targetDirectory + "/";
-
-                    global.LOG(global.INFO, "Receiving the file " + filename);
-                    var fs = require('fs');
+                    var target = global.tempFileStorage + targetDirectory + "/";
 
                     try {
                         fs.mkdirSync(target, { recursive: true });
@@ -71,6 +70,14 @@ module.exports = function (app) {
                         global.LOG(global.INFO, "Receiving chunk for file " + filename);
                         data = fs.readFileSync(origin);
                         fs.appendFileSync(target + filename, data);
+                    }
+
+                    if (isLastChunk == "true") {
+                        global.LOG(global.INFO, "Finished receiving chunks, moving the file");
+                        var origin = target + filename;
+                        target = global.fileStorage + targetDirectory + "/" + filename;
+                        fs.copyFileSync(origin, target);
+                        fs.unlinkSync(origin);
                     }
                 }
             } catch (err) {
