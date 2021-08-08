@@ -50,11 +50,13 @@ class SessionHandler {
                             var parentAvailable = JSON.parse(request.responseText)["parentAvailable"];
                             if (parentAvailable) {
                                 var item = new FileItem("..", "", false, handler);
+                                var tooltip = new TooltipContainer("Parent directory");
                                 item.directory = handler.getParentDirectory();
                                 item.setIcon("assets/img/folder.svg");
                                 item.disableSelected = true;
+                                tooltip.appendChild(item.get());
 
-                                container.appendChild(item.get());
+                                container.appendChild(tooltip);
                             }
 
                             for (var i = 0; i < fileList.length; i++) {
@@ -62,10 +64,12 @@ class SessionHandler {
                                 var filename = fileData["name"];
                                 var isFile = fileData["isFile"];
                                 var item = new FileItem(filename, "", isFile, handler);
+                                var tooltip = new TooltipContainer(filename);
                                 item.directory = handler.getAbsoluteDirectory(filename);
                                 item.register();
+                                tooltip.appendChild(item.get());
 
-                                container.appendChild(item.get());
+                                container.appendChild(tooltip);
                             }
                         }
                     }
