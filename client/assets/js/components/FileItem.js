@@ -43,9 +43,6 @@ class FileItem extends MaterialButton {
         };
 
         this.setIcon("assets/img/" + (isFile ? "file.svg" : "folder.svg"));
-    }
-
-    register() {
         this.sessionHandler.fileButtonList.push(this);
     }
 

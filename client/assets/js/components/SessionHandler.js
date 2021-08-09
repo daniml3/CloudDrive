@@ -7,9 +7,25 @@ class SessionHandler {
     }
 
     init() {
-        this.serverAddress = window.location.href.replace("#", "");
-        if (this.serverAddress.slice(-1) == "/") {
-            this.serverAddress = this.serverAddress.slice(0, -1)
+        var splittedAddress = window.location.href.split("/");
+        var parsedAddress = false;
+        this.serverAddress = "";
+        for (var i = 0; i < splittedAddress.length; i++) {
+            switch (i) {
+                case 0: // Protocol (http(s))
+                case 2: // Domain (domain.example.com)
+                    this.serverAddress += splittedAddress[i];
+                    break;
+                case 1: // Add the removed // by split
+                    this.serverAddress += "//";
+                    break;
+                default:
+                    parsedAddress = true;
+            }
+
+            if (parsedAddress) {
+                break;
+            }
         }
 
         this.enterDirectory("/");
@@ -45,18 +61,18 @@ class SessionHandler {
                             || handler.pendingViewRegen) {
                             handler.pendingViewRegen = false;
                             handler.createEmptyFileButtonList();
-                            container.innerHTML = "";
                             handler.lastFileList = fileList;
-                            var parentAvailable = JSON.parse(request.responseText)["parentAvailable"];
-                            if (parentAvailable) {
+                            container.innerHTML = "";
+
+                            if (response["parentAvailable"]) {
                                 var item = new FileItem("..", "", false, handler);
-                                var tooltip = new TooltipContainer("Parent directory");
+                                var tooltip = new TooltipContainer("Parent directory", item.get());
                                 item.directory = handler.getParentDirectory();
                                 item.setIcon("assets/img/folder.svg");
                                 item.disableSelected = true;
-                                tooltip.appendChild(item.get());
+                                tooltip.get().appendChild(item.get());
 
-                                container.appendChild(tooltip);
+                                container.appendChild(tooltip.get());
                             }
 
                             for (var i = 0; i < fileList.length; i++) {
@@ -64,13 +80,12 @@ class SessionHandler {
                                 var filename = fileData["name"];
                                 var isFile = fileData["isFile"];
                                 var item = new FileItem(filename, "", isFile, handler);
-                                var tooltip = new TooltipContainer(filename);
+                                var tooltip = new TooltipContainer(filename, item.get());
                                 item.directory = handler.getAbsoluteDirectory(filename);
-                                item.register();
-                                tooltip.appendChild(item.get());
 
-                                container.appendChild(tooltip);
+                                container.appendChild(tooltip.get());
                             }
+
                             document.getElementById("current-directory-text").innerHTML = handler.currentDirectory;
                         }
                     }

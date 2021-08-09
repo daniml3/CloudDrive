@@ -1,9 +1,14 @@
 class TooltipContainer {
-    constructor(content) {
-        var tooltip = document.createElement("span");
-        tooltip.className = "d-inline-block";
-        tooltip.setAttribute("data-toggle", "tooltip");
-        tooltip.setAttribute("title", content);
-        return tooltip;
+    constructor(content, div) {
+        this.tooltip = document.createElement("span");
+        this.tooltip.className = "d-inline-block";
+        this.tooltip.setAttribute("data-toggle", "tooltip");
+        this.tooltip.setAttribute("title", content);
+        this.tooltip.appendChild(div);
+        return this;
+    }
+
+    get() {
+        return this.tooltip;
     }
 }

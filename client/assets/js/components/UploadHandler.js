@@ -5,7 +5,6 @@ class UploadHandler {
         this.chunkSize = 50 * 1000 * 1000; // 50MB
         this.start = 0;
         this.file = file;
-        this.lastChunk = false;
     }
 
     sendChunk() {
@@ -35,19 +34,16 @@ class UploadHandler {
                     $("#error-dialog").modal("show");
                 } else {
                     if (handler.isLastChunk(file)) {
-                        handler.chunkSize = file.size - handler.start;
-                        handler.lastChunk = true;
                         handler.setProgress(100);
                         setTimeout(function() {
                             $("#upload-file-dialog").modal("hide");
                             document.getElementById("file-to-upload").disabled = false;
                         }, 1000);
                     } else {
-                        handler.lastChunk = false;
                         handler.start += handler.chunkSize;
-                    }
-                    if (handler.start < file.size && !handler.lastChunk) {
-                        handler.sendChunk();
+                        if (handler.start < file.size) {
+                            handler.sendChunk();
+                        }
                     }
                 }
             }
