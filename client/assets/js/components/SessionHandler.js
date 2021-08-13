@@ -27,8 +27,6 @@ class SessionHandler {
                 break;
             }
         }
-
-        this.enterDirectory("/");
     }
 
     generateItemViews() {
@@ -41,6 +39,10 @@ class SessionHandler {
         var container = document.getElementById("file-button-container");
         var handler = this;
 
+        if (!document.authManager.isLoggedIn()) {
+            return;
+        }
+
         formData.append("targetDirectory", this.currentDirectory);
         request.open("POST", this.APICall("/readdir"));
         request.onreadystatechange = function () {
@@ -50,6 +52,11 @@ class SessionHandler {
                     if (request.status == 200 && response["error"]) {
                         document.getElementById("error-message").innerHTML = response["errorMessage"];
                         $("#error-dialog").modal("show");
+                        if (response["denied"]) {
+                            window.setTimeout(function () {
+                                handler.goToLogin();
+                            }, 1500);
+                        }
                         handler.enterDirectory("/");
                     } else if (request.status != 200) {
                         document.getElementById("error-message").innerHTML = "Failed to connect to the server";
@@ -104,7 +111,11 @@ class SessionHandler {
     }
 
     APICall(route) {
-        return this.serverAddress + route;
+        return this.APICallWithToken(route, document.authManager.getToken());
+    }
+
+    APICallWithToken(route, token) {
+        return this.serverAddress + route + "?sessionToken=" + token;
     }
 
     enterDirectory(directory) {
@@ -141,6 +152,15 @@ class SessionHandler {
     }
 
     startFileItemLoop() {
+        this.enterDirectory("/");
         this.generateItemViews(true);
+    }
+
+    goToMain() {
+        window.location.replace(this.getServerAddress());
+    }
+
+    goToLogin() {
+        window.location.replace("login");
     }
 }
