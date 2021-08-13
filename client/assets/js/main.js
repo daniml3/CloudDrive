@@ -1,10 +1,23 @@
-var sessionHandler = new SessionHandler();
-var deleteQueue = new DeleteQueue();
+document.sessionHandler = new SessionHandler();
+document.deleteQueue = new DeleteQueue();
+document.authManager = new AuthManager();
+document.cookieHandler = new CookieHandler();
+
+var sessionHandler = document.sessionHandler;
+var deleteQueue = document.deleteQueue;
+var authManager = document.authManager;
+var cookieHandler = document.cookieHandler;
 
 // Setup the session, the window buttons and generate the items
 window.onload = function() {
     sessionHandler.init();
+    authManager.addLoggedInCallback(function() {
+        sessionHandler.startFileItemLoop();
+    });
+    authManager.init(false);
+
     console.log("Using " + sessionHandler.getServerAddress() + " as server address");
+
     document.getElementById("create-directory-button").onclick = function() {
         $("#create-directory-dialog").modal("show");
     };
@@ -52,5 +65,7 @@ window.onload = function() {
         deleteQueue.startDeleting();
     }
 
-    sessionHandler.startFileItemLoop();
+    document.getElementById("logout-button").onclick = function() {
+        authManager.logout();
+    };
 };

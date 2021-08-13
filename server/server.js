@@ -25,7 +25,7 @@ app.listen(global.port, () => {
     global.LOG(INFO, "Temporal storage directory at " + global.tempFileStorage);
 });
 
-app.use(express.static("../client/"));
+app.use(express.static("../client/", {extensions: ["html"]}));
 
 try {
     fs.rmdirSync(global.tempFileStorage, {recursive: true});
