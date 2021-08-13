@@ -27,8 +27,6 @@ class SessionHandler {
                 break;
             }
         }
-
-        this.enterDirectory("/");
     }
 
     generateItemViews() {
@@ -41,8 +39,12 @@ class SessionHandler {
         var container = document.getElementById("file-button-container");
         var handler = this;
 
+        if (!document.authManager.isLoggedIn()) {
+            return;
+        }
+
         formData.append("targetDirectory", this.currentDirectory);
-        request.open("POST", this.APICall("/readdir"));
+        request.open("POST", this.APICall("/readdir", true));
         request.onreadystatechange = function () {
             if (request.readyState === XMLHttpRequest.DONE) {
                 if (!(handler.skipAutoViewGeneration && shouldReSchedule)) {
@@ -50,6 +52,11 @@ class SessionHandler {
                     if (request.status == 200 && response["error"]) {
                         document.getElementById("error-message").innerHTML = response["errorMessage"];
                         $("#error-dialog").modal("show");
+                        if (response["denied"]) {
+                            window.setTimeout(function () {
+                                window.location.replace(handler.serverAddress);
+                            }, 1500);
+                        }
                         handler.enterDirectory("/");
                     } else if (request.status != 200) {
                         document.getElementById("error-message").innerHTML = "Failed to connect to the server";
@@ -103,8 +110,12 @@ class SessionHandler {
         request.send(formData);
     }
 
-    APICall(route) {
-        return this.serverAddress + route;
+    APICall(route, needsAuth) {
+        var call = this.serverAddress + route;
+        if (needsAuth) {
+            call += "?sessionToken=" + document.authManager.getToken();
+        }
+        return call;
     }
 
     enterDirectory(directory) {
@@ -141,6 +152,7 @@ class SessionHandler {
     }
 
     startFileItemLoop() {
+        this.enterDirectory("/");
         this.generateItemViews(true);
     }
 }

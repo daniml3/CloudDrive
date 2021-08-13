@@ -1,10 +1,11 @@
 var multiparty = require("multiparty");
 var fs = require("fs");
+var tokenVerifier = require("../middleware/tokenverifier.js");
 
 const neededFormKeys = ["targetDirectory"];
 
 module.exports = function (app) {
-    app.post("/mkdir", function (req, res) {
+    app.post("/mkdir", tokenVerifier.verifyToken, function (req, res) {
         var form = new multiparty.Form();
         form.parse(req, function (err, fields, files) {
             var generatedForm = {};

@@ -24,7 +24,8 @@ class FileItem extends MaterialButton {
                     document.getElementById("file-contextual-menu-title").innerHTML = content;
 
                     document.getElementById("download-file-button").onclick = function() {
-                         window.open(sessionHandler.APICall("/download") + item.absoluteDirectory);
+                        var downloadUrl = sessionHandler.APICall("/download" + item.absoluteDirectory, true);
+                        window.open(downloadUrl);
                     };
                     $("#file-contextual-menu").modal("show");
                     item.selected = true;
