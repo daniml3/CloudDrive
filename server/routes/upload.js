@@ -1,11 +1,12 @@
 var multiparty = require("multiparty");
 var fs = require("fs");
 var formparser = require("../middleware/formparser.js");
+var tokenVerifier = require("../middleware/tokenverifier.js");
 
 const neededFormKeys = ["targetDirectory", "isInitialChunk", "isLastChunk"];
 
 module.exports = function (app) {
-    app.post("/upload", function (req, res) {
+    app.post("/upload", tokenVerifier.verifyToken, function (req, res) {
         formparser.parseForm(req, res, neededFormKeys, function(fields, files, generatedForm, response) {
             var isInitialChunk = generatedForm["isInitialChunk"];
             var isLastChunk = generatedForm["isLastChunk"];

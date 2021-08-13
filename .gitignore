@@ -4,3 +4,4 @@ server/files/
 server/temporal/
 
 start.sh
+authConfig.json

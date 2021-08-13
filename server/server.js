@@ -1,6 +1,7 @@
 var express = require("express");
 var multiparty = require("multiparty");
 var fs = require("fs");
+var credentialManager = require("./auth/credentialmanager.js");
 
 var app = express();
 
@@ -25,12 +26,22 @@ app.listen(global.port, () => {
     global.LOG(INFO, "Temporal storage directory at " + global.tempFileStorage);
 });
 
-app.use(express.static("../client/"));
+app.use(express.static("../client/", {extensions: ["html"]}));
 
 try {
     fs.rmdirSync(global.tempFileStorage, {recursive: true});
     global.LOG(global.INFO, "Cleaned the temporal files directory");
 } catch (err) {}
+
+var authConfigFile = process.env.CLOUDDRIVE_AUTH_CONFIG || __dirname + "/" + "../authConfig.json";
+try {
+    credentialManager.parseConfig(JSON.parse(fs.readFileSync(authConfigFile, "utf8")));
+} catch (err) {
+    global.LOG(global.WARNING, "Failed to load the auth config at " + authConfigFile);
+    global.LOG(global.WARNING, "The server will run without security");
+    global.LOG(global.ERROR, err);
+    credentialManager.setInsecure(true);
+}
 
 var routeList = fs.readdirSync("./routes/");
 for (i = 0; i < routeList.length; i++) {
