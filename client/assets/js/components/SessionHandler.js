@@ -108,6 +108,10 @@ class SessionHandler {
     }
 
     enterDirectory(directory) {
+        if (this.currentDirectory == directory) {
+            return;
+        }
+
         console.log("Entering to the directory " + directory);
         this.currentDirectory = directory;
         this.skipAutoViewGeneration = true;
