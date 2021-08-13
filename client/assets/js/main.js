@@ -1,9 +1,21 @@
-var sessionHandler = new SessionHandler();
-var deleteQueue = new DeleteQueue();
+document.sessionHandler = new SessionHandler();
+document.deleteQueue = new DeleteQueue();
+document.authHandler = new AuthHandler();
+document.cookieHandler = new CookieHandler();
+
+var sessionHandler = document.sessionHandler;
+var deleteQueue = document.deleteQueue;
+var authHandler = document.authHandler;
+var cookieHandler = document.cookieHandler;
 
 // Setup the session, the window buttons and generate the items
 window.onload = function() {
     sessionHandler.init();
+    authHandler.addLoggedInCallback(function() {
+        sessionHandler.startFileItemLoop();
+    });
+    authHandler.init(false);
+
     console.log("Using " + sessionHandler.getServerAddress() + " as server address");
     document.getElementById("create-directory-button").onclick = function() {
         $("#create-directory-dialog").modal("show");
@@ -52,5 +64,21 @@ window.onload = function() {
         deleteQueue.startDeleting();
     }
 
-    sessionHandler.startFileItemLoop();
+    document.getElementById("logout-button").onclick = function() {
+        authHandler.logout();
+    };
+
+    var request = new XMLHttpRequest();
+    request.open("GET", sessionHandler.APICall("/isinsecure"));
+    request.onreadystatechange = function () {
+        if (request.readyState === XMLHttpRequest.DONE) {
+            var response = request.responseText;
+            if (response["isInsecure"]) {
+                authHandler.login("INSECURE", "INSECURE");
+                sessionHandler.startFileItemLoop();
+            }
+        }
+    };
+
+    request.send();
 };
