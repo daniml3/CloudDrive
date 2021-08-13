@@ -1,11 +1,12 @@
 var multiparty = require("multiparty");
 var fs = require("fs");
 var formparser = require("../middleware/formparser.js");
+var tokenVerifier = require("../middleware/tokenverifier.js");
 
 const neededFormKeys = ["originPath", "targetPath"];
 
 module.exports = function (app) {
-    app.post("/move", function (req, res) {
+    app.post("/move", tokenVerifier.verifyToken, function (req, res) {
         formparser.parseForm(req, res, neededFormKeys, function(fields, files, generatedForm, response) {
             var originPath = global.fileStorage + generatedForm["originPath"];
             var targetPath = global.fileStorage + generatedForm["targetPath"];

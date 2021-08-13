@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>CloudDrive</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body>
+    <!-- Main screen -->
+    <div class="container max-width">
+        <div class="col-md-12 header-column">
+            <div class="row">
+                <div class="col wrap-content">
+                    <h1 class="app-name wrap-content">CloudDrive</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container login-dialog">
+        <p class="login-title">Enter login credentials</p>
+        <div class="row">
+            <div class="col">
+                <p class="rounded-status-text" id="login-status-text">Waiting for login</p>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <p class="login-title">Username</p>
+                    </div>
+                    <div class="col">
+                        <input class="input-nofill wrap-content" id="username-input"></input>
+                    </div>
+                </div>
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <p class="login-title">Password</p>
+                    </div>
+                    <div class="col">
+                        <input class="input-nofill wrap-content" id="password-input"></input>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <button class="material-button wrap-content align-end" id="login-button">Login</button>
+            </div>
+        </div>
+    </div>
+    <script src="assets/js/components/SessionHandler.js"></script>
+    <script src="assets/js/components/CookieHandler.js"></script>
+    <script src="assets/js/components/AuthManager.js"></script>
+    <script src="assets/js/login.js"></script>
+</body>
+
+</html>
