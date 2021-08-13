@@ -82,7 +82,7 @@ input[type=text] {
     user-select: none;
 }
 
-.current-directory-text {
+.rounded-status-text {
   color: black;
   font-family: inherit;
   font-size: 16px;
@@ -91,4 +91,23 @@ input[type=text] {
   padding: 10px;
   margin-top: 8px;
   overflow-wrap: break-word;
+}
+
+.login-title {
+  color: white;
+  font-weight: 600;
+}
+
+.login-dialog {
+  margin: auto;
+  margin-top: 150px;
+  width: min-content;
+  background-color: gray;
+  border-radius: 15px;
+  text-align: center;
+  padding: 25px;
+}
+
+.align-end {
+  margin-left: auto;
 }
