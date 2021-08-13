@@ -5,6 +5,7 @@
 
 ## Table of contents
 * [Installation and configuration](#installation-and-configuration)
+* [Security configuration](#security-configuration)
 * [Documentation](#documentation)
     * [Client documentation](#client-documentation)
     * [Server documentation](#server-documentation)
@@ -23,6 +24,16 @@
 4- Once the variables are configured, it's time to run the app with the command `./start.sh`. This will install the needed dependencies with `npm` and run the app on the specified port (make sure that the script has execution permissions (`chmod +x ./start.sh`)).
 
 5- The server should now be running if nothing went wrong. Verify it by accessing to `http://localhost:CLOUDDRIVE_PORT` (replace CLOUDDRIVE_PORT with the port set on the configuration).
+
+## Security configuration
+You can configure the app to need credentials in order to access to the file server. The configuration is very easy:
+1- Run the auth configuration script with the command `./genauthconfig.sh`.
+
+2- Write an username, then a password, and the same with as many credentials as you want.
+
+3- Once you're done, type "n" so the script stops asking for credentials and then the config will be generated.
+
+4- Once you start the server again, it will be running on secure mode and will ask for credentials on a login screen on the next time you use the app.
 
 ## Documentation
 
