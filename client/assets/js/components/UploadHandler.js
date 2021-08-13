@@ -22,7 +22,7 @@ class UploadHandler {
         formData.append("isInitialChunk", (handler.start == 0));
         formData.append("isLastChunk", handler.isLastChunk(file));
 
-        request.open("POST", sessionHandler.APICall("/upload"));
+        request.open("POST", sessionHandler.APICall("/upload", true));
         request.upload.addEventListener("progress", function (event) {
             handler.setProgress(((handler.start + event.loaded) / file.size) * 100);
         }, false);

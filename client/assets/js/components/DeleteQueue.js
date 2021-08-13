@@ -23,7 +23,7 @@ class DeleteQueue {
 
         formData.append("targetPath", sessionHandler.currentDirectory + fileItem.content);
         formData.append("isFile", fileItem.isFile);
-        request.open("POST", sessionHandler.APICall("/delete"));
+        request.open("POST", sessionHandler.APICall("/delete", true));
         request.onreadystatechange = function() {
             if (request.readyState === XMLHttpRequest.DONE) {
                  deleteQueue.index++;

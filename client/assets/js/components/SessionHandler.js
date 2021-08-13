@@ -4,6 +4,7 @@ class SessionHandler {
         this.lastFileList = [];
         this.skipAutoViewGeneration = false;
         this.pendingViewRegen = true;
+        this.lastRequestWasError = false;
     }
 
     init() {
@@ -27,8 +28,6 @@ class SessionHandler {
                 break;
             }
         }
-
-        this.enterDirectory("/");
     }
 
     generateItemViews() {
@@ -41,8 +40,12 @@ class SessionHandler {
         var container = document.getElementById("file-button-container");
         var handler = this;
 
+        if (!document.authManager.isLoggedIn()) {
+            return;
+        }
+
         formData.append("targetDirectory", this.currentDirectory);
-        request.open("POST", this.APICall("/readdir"));
+        request.open("POST", this.APICall("/readdir", true));
         request.onreadystatechange = function () {
             if (request.readyState === XMLHttpRequest.DONE) {
                 if (!(handler.skipAutoViewGeneration && shouldReSchedule)) {
@@ -50,12 +53,21 @@ class SessionHandler {
                     if (request.status == 200 && response["error"]) {
                         document.getElementById("error-message").innerHTML = response["errorMessage"];
                         $("#error-dialog").modal("show");
-                        handler.enterDirectory("/");
+                        window.setTimeout(function () {
+                            if (response["denied"]) {
+                                window.location.replace(handler.serverAddress);
+                            } else if (!handler.lastRequestWasError){
+                                handler.enterDirectory("/");
+                            }
+                        }, 1500);
+                        handler.lastRequestWasError = true;
                     } else if (request.status != 200) {
                         document.getElementById("error-message").innerHTML = "Failed to connect to the server";
                         $("#error-dialog").modal("show");
+                        handler.lastRequestWasError = true;
                     } else {
                         var fileList = response["fileList"];
+                        handler.lastRequestWasError = false;
 
                         if (JSON.stringify(handler.lastFileList) != JSON.stringify(fileList)
                             || handler.pendingViewRegen) {
@@ -103,8 +115,12 @@ class SessionHandler {
         request.send(formData);
     }
 
-    APICall(route) {
-        return this.serverAddress + route;
+    APICall(route, needsAuth) {
+        var call = this.serverAddress + route;
+        if (needsAuth) {
+            call += "?sessionToken=" + document.authManager.getToken();
+        }
+        return call;
     }
 
     enterDirectory(directory) {
@@ -137,6 +153,7 @@ class SessionHandler {
     }
 
     startFileItemLoop() {
+        this.enterDirectory("/");
         this.generateItemViews(true);
     }
 }
