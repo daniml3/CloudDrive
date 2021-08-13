@@ -92,3 +92,27 @@ input[type=text] {
   margin-top: 8px;
   overflow-wrap: break-word;
 }
+
+.input-nofill {
+  width: auto;
+}
+
+.login-title {
+  color: white;
+  font-weight: 600;
+}
+
+.login-dialog {
+  margin: auto;
+  margin-top: 150px;
+  width: min-content;
+  background-color: gray;
+  border-radius: 15px;
+  text-align: center;
+  padding: 25px;
+}
+
+.align-end {
+  margin-left: auto;
+  margin-right: 10px;
+}
