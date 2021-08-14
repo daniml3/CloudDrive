@@ -1,41 +1,14 @@
 var multiparty = require("multiparty");
 var fs = require("fs");
+var formparser = require("../middleware/formparser.js");
 
 const neededFormKeys = ["targetPath", "isFile"];
 
 module.exports = function (app) {
     app.post("/delete", function (req, res) {
-        var form = new multiparty.Form();
-        form.parse(req, function (err, fields, files) {
-            var generatedForm = {};
-            var response = {};
-            var targetPath;
-            var isFile;
-
-            if (!fields) {
-                response["error"] = true;
-                response["errorMessage"] = "Missing request body";
-                res.send(response);
-                return;
-            }
-
-            for (i = 0; i < Object.keys(fields).length; i++) {
-                generatedForm[Object.keys(fields)[i]] = Object.values(fields)[i][0];
-            }
-
-            for (i = 0; i < neededFormKeys.length; i++ ) {
-                var key = neededFormKeys[i];
-                if (!generatedForm[key]) {
-                    global.LOG(global.ERROR, "Missing form key " + key);
-                    response["error"] = true;
-                    response["errorMessage"] = "Missing form key " + key;
-                    res.send(response);
-                    return;
-                }
-            }
-
-            targetPath = generatedForm["targetPath"];
-            isFile = generatedForm["isFile"];
+        formparser.parseForm(req, res, neededFormKeys, function(fields, files, generatedForm, response) {
+            var targetPath = generatedForm["targetPath"];
+            var isFile = generatedForm["isFile"];
 
             if (targetPath.includes("..")) {
                 global.LOG(global.WARNING, "Tried to perform an illegal operation "

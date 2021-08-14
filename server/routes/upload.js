@@ -1,42 +1,15 @@
 var multiparty = require("multiparty");
 var fs = require("fs");
+var formparser = require("../middleware/formparser.js");
 
 const neededFormKeys = ["targetDirectory", "isInitialChunk", "isLastChunk"];
 
 module.exports = function (app) {
     app.post("/upload", function (req, res) {
-        var form = new multiparty.Form();
-        form.parse(req, function (err, fields, files) {
-            var generatedForm = {};
-            var response = {};
+        formparser.parseForm(req, res, neededFormKeys, function(fields, files, generatedForm, response) {
+            var isInitialChunk = generatedForm["isInitialChunk"];
+            var isLastChunk = generatedForm["isLastChunk"];
             var filename;
-            var isInitialChunk;
-            var isLastChunk;
-
-            if (!fields) {
-                response["error"] = true;
-                response["errorMessage"] = "Missing request body";
-                res.send(response);
-                return;
-            }
-
-            for (i = 0; i < Object.keys(fields).length; i++) {
-                generatedForm[Object.keys(fields)[i]] = Object.values(fields)[i][0];
-            }
-
-            for (i = 0; i < neededFormKeys.length; i++ ) {
-                var key = neededFormKeys[i];
-                if (!generatedForm[key]) {
-                    global.LOG(global.ERROR, "Missing form key " + key);
-                    response["error"] = true;
-                    response["errorMessage"] = "Missing form key " + key;
-                    res.send(response);
-                    return;
-                }
-            }
-
-            isInitialChunk = generatedForm["isInitialChunk"];
-            isLastChunk = generatedForm["isLastChunk"];
 
             response["error"] = false;
             try {
