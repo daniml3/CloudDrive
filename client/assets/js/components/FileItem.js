@@ -29,6 +29,20 @@ class FileItem extends MaterialButton {
                             window.open(sessionHandler.APICallWithToken("/download" + item.absoluteDirectory, token));
                         });
                     };
+
+                    var genFileUrlButton = document.getElementById("genenrate-file-url-button");
+                    var originalButtonText = genFileUrlButton.innerHTML;
+                    genFileUrlButton.onclick = function() {
+                        var longevitySeconds = document.getElementById("download-url-longevity").value;
+                        document.authHandler.getTemporalToken(longevitySeconds, function (token) {
+                            var txt = sessionHandler.APICallWithToken("/download" + item.absoluteDirectory, token);
+                            copyToClipboard(txt);
+                            genFileUrlButton.innerHTML = "Copied!";
+                            setTimeout(function() {
+                                genFileUrlButton.innerHTML = originalButtonText;
+                            }, 2000);
+                         });
+                    };
                     $("#file-contextual-menu").modal("show");
                     item.selected = true;
                 }
