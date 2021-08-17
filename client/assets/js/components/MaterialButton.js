@@ -42,4 +42,14 @@ class MaterialButton {
     setIcon(icon) {
         this.childIcon.src = icon;
     }
+
+    fadeOut(callback) {
+        var animator = new Animator();
+        animator.fade(this.get(), 0, null, callback);
+    }
+
+    fadeIn(callback) {
+        var animator = new Animator();
+        animator.fade(this.get(), 1, null, callback);
+    }
 }

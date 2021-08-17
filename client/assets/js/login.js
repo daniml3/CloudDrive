@@ -6,6 +6,8 @@ var sessionHandler = document.sessionHandler;
 var authHandler = document.authHandler;
 var cookieHandler = document.cookieHandler;
 
+var animator = new Animator();
+
 window.onload = function() {
     sessionHandler.init();
     authHandler.init(true);
@@ -22,7 +24,9 @@ window.onload = function() {
             authHandler.login(username, password, function(loggedIn) {
                 if (loggedIn) {
                     statusText.innerHTML = "Redirecting";
-                    sessionHandler.goToMain();
+                    animator.fade(document.body, 0, 0.05, function() {
+                        sessionHandler.goToMain();
+                    });
                 } else {
                     statusText.innerHTML = "Invalid credentials";
                 }

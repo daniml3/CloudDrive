@@ -24,9 +24,16 @@
   border-top-right-radius: 0px;
   border-bottom-right-radius: 30px;
   border-bottom-left-radius: 30px;
-  padding-left: 10px;
-  padding: 10px;
-  padding-right: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 15%;
+  padding-right: 15%;
+}
+
+@media all and (max-width: 800px) {
+  .header-column {
+    padding: 10px;
+  }
 }
 
 .material-button {
@@ -38,13 +45,24 @@
   padding: 10px;
   white-space: nowrap;
   font-weight: 600;
-  transition: box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease, transform 0.25s ease, background-color 0.3s ease;
   margin: 10px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
 }
 
 .material-button:hover {
     box-shadow: 0px 0px 15px 2px gray;
     color: black;
+}
+
+.material-button:active {
+  transform: scale(0.95);
 }
 
 .file-item {
@@ -58,6 +76,15 @@
 
 .file-item-container {
   text-align: center;
+  padding-left: 20%;
+  padding-right: 20%;
+}
+
+@media all and (max-width: 800px) {
+  .file-item-container {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
 }
 
 .modal-content  {
@@ -101,10 +128,14 @@ input[type=text] {
 .login-dialog {
   margin: auto;
   margin-top: 150px;
-  width: min-content;
+  width: fit-content;
   background-color: gray;
   border-radius: 15px;
   text-align: center;
+  padding: 25px;
+}
+
+.login-container {
   padding: 25px;
 }
 

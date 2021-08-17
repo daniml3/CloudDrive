@@ -8,11 +8,16 @@ var deleteQueue = document.deleteQueue;
 var authHandler = document.authHandler;
 var cookieHandler = document.cookieHandler;
 
+var animator = new Animator();
+
 // Setup the session, the window buttons and generate the items
 window.onload = function() {
     sessionHandler.init();
     authHandler.addLoggedInCallback(function() {
         sessionHandler.startFileItemLoop();
+        setTimeout(function() {
+            animator.fade(document.body, 1, 0.05, null);
+        }, 100);
     });
     authHandler.init(false);
 
@@ -79,6 +84,5 @@ window.onload = function() {
             }
         }
     };
-
     request.send();
 };
