@@ -11,6 +11,33 @@
 </head>
 
 <body>
+
+    <!-- Preferences dialog -->
+    <div class="modal fade" role="dialog" tabindex="-1" id="preferences-dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Preferences</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row padding-10">
+                        <div class="col">
+                            <h5>Dark mode</h5>
+                        </div>
+                        <label class="switch">
+                          <input type="checkbox" id="dark-mode-switch">
+                          <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="material-button" id="save-preferences-button">Save preferences</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Main screen -->
     <div class="container max-width">
         <div class="col-md-12 header-column">
@@ -48,12 +75,20 @@
                     </div>
                 </div>
                 <div class="row">
-                    <button class="material-button wrap-content align-end" id="login-button">Login</button>
+                    <div class="col">
+                        <button class="material-button" id="preferences-button">Preferences</button>
+                    </div>
+                    <div class="col">
+                        <button class="material-button" id="login-button">Login</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/components/Animator.js"></script>
+    <script src="assets/js/components/ThemeHandler.js"></script>
     <script src="assets/js/components/SessionHandler.js"></script>
     <script src="assets/js/components/CookieHandler.js"></script>
     <script src="assets/js/components/AuthHandler.js"></script>

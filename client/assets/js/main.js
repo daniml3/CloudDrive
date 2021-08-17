@@ -2,16 +2,19 @@ document.sessionHandler = new SessionHandler();
 document.deleteQueue = new DeleteQueue();
 document.authHandler = new AuthHandler();
 document.cookieHandler = new CookieHandler();
+document.themeHandler = new ThemeHandler();
 
 var sessionHandler = document.sessionHandler;
 var deleteQueue = document.deleteQueue;
 var authHandler = document.authHandler;
 var cookieHandler = document.cookieHandler;
+var themeHandler = document.themeHandler;
 
 var animator = new Animator();
 
 // Setup the session, the window buttons and generate the items
 window.onload = function() {
+    themeHandler.configureCurrentTheme();
     sessionHandler.init();
     authHandler.addLoggedInCallback(function() {
         sessionHandler.startFileItemLoop();
@@ -68,6 +71,20 @@ window.onload = function() {
         }
         deleteQueue.startDeleting();
     }
+
+    document.getElementById("preferences-button").onclick = function() {
+        var darkModeSwitch = document.getElementById("dark-mode-switch");
+        var darkModeEnabled = cookieHandler.getCookieDefault(themeHandler.darkModeEnabledCookie, false) == "true";
+        darkModeSwitch.checked = darkModeEnabled;
+        $("#preferences-dialog").modal("show");
+    };
+
+    document.getElementById("save-preferences-button").onclick = function() {
+        var darkModeSwitch = document.getElementById("dark-mode-switch");
+        cookieHandler.setCookie(themeHandler.darkModeEnabledCookie, darkModeSwitch.checked);
+        themeHandler.configureCurrentTheme();
+        $("#preferences-dialog").modal("hide");
+    };
 
     document.getElementById("logout-button").onclick = function() {
         authHandler.logout();
