@@ -89,6 +89,34 @@
         </div>
     </div>
 
+    <!-- Preferences dialog -->
+    <div class="modal fade" role="dialog" tabindex="-1" id="preferences-dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Preferences</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <h5>Dark mode</h5>
+                        </div>
+                        <div class="col">
+                            <label class="switch">
+                              <input type="checkbox" id="dark-mode-switch">
+                              <span class="slider round"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="material-button" id="save-preferences-button">Save preferences</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Main screen -->
     <div class="container max-width">
         <div class="col-md-12 header-column">
@@ -105,6 +133,7 @@
                     <button class="material-button" id="create-directory-button">Create directory</button>
                     <button class="material-button" id="upload-file-button">Upload file</button>
                     <button class="material-button" id="delete-selected-button">Delete selected</button>
+                    <button class="material-button" id="preferences-button">Preferences</button>
                     <button class="material-button" id="logout-button">Logout</button>
                 </div>
             </div>
@@ -114,6 +143,7 @@
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/utils.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/components/ThemeHandler.js"></script>
     <script src="assets/js/components/MaterialButton.js"></script>
     <script src="assets/js/components/FileItem.js"></script>
     <script src="assets/js/components/TooltipContainer.js"></script>
