@@ -1,10 +1,30 @@
+:root {
+  --color-main: white;
+  --color-main-text: black;
+  --color-main-shadow: gray;
+  --header-background: rgb(208, 208, 208);
+}
+
+.modal-title {
+  color: var(--color-main-text)
+}
+
+.modal-content {
+   background-color: var(--color-main);
+}
+
+body {
+  background: var(--color-main);
+  color: var(--color-main-text);
+}
+
 .app-name {
   color: gray;
   font-family: inherit;
   max-width: min-content;
   font-size: 36px;
   font-weight: 600;
-  background-color: white;
+  background-color: var(--color-main);
   border-radius: 30px;
   padding: 10px;
 }
@@ -18,7 +38,7 @@
 }
 
 .header-column {
-  background: rgb(208,208,208);
+  background: var(--header-background);
   border-width: 0px;
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
@@ -31,11 +51,11 @@
 }
 
 .material-button {
-  background-color: white;
-  color: #333333;
+  background-color: var(--color-main);
+  color: var(--color-main-text);
   border-radius: 30px;
   border-color: transparent;
-  box-shadow: 0px 0px 10px 0.5px gray;
+  box-shadow: 0px 0px 10px 0.5px var(--color-main-shadow);
   padding: 10px;
   white-space: nowrap;
   font-weight: 600;
@@ -45,8 +65,7 @@
 }
 
 .material-button:hover {
-    box-shadow: 0px 0px 15px 2px gray;
-    color: black;
+    box-shadow: 0px 0px 15px 2px var(--color-main-shadow);
 }
 
 .material-button:active {
@@ -98,10 +117,10 @@ input[type=text] {
 }
 
 .rounded-status-text {
-  color: black;
+  color: var(--color-main-text);
   font-family: inherit;
   font-size: 16px;
-  background-color: white;
+  background-color: var(--color-main);
   border-radius: 30px;
   padding: 10px;
   margin-top: 8px;
@@ -117,7 +136,7 @@ input[type=text] {
   margin: auto;
   margin-top: 150px;
   width: min-content;
-  background-color: gray;
+  background-color: var(--header-background);
   border-radius: 15px;
   text-align: center;
   padding: 25px;
@@ -125,4 +144,57 @@ input[type=text] {
 
 .align-end {
   margin-left: auto;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 34px
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: cornflowerblue;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
 }
