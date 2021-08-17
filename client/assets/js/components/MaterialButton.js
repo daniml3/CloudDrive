@@ -42,4 +42,34 @@ class MaterialButton {
     setIcon(icon) {
         this.childIcon.src = icon;
     }
+
+    fadeOut(callback) {
+        var fadeTarget = this.get();
+        fadeTarget.style.opacity = 1;
+        var fadeEffect = setInterval(function () {
+            if (fadeTarget.style.opacity > 0) {
+                fadeTarget.style.opacity = parseFloat(fadeTarget.style.opacity) - 0.1;
+            } else {
+                clearInterval(fadeEffect);
+                if (callback) {
+                    callback();
+                }
+            }
+        }, 20);
+    }
+
+    fadeIn(callback) {
+        var fadeTarget = this.get();
+        fadeTarget.style.opacity = 0;
+        var fadeEffect = setInterval(function () {
+            if (fadeTarget.style.opacity < 1) {
+                fadeTarget.style.opacity = parseFloat(fadeTarget.style.opacity) + 0.1;
+            } else {
+                clearInterval(fadeEffect);
+                if (callback) {
+                    callback();
+                }
+            }
+        }, 20);
+    }
 }

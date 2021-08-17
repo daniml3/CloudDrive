@@ -10,6 +10,7 @@ class SessionHandler {
         var splittedAddress = window.location.href.split("/");
         var parsedAddress = false;
         this.serverAddress = "";
+        this.createEmptyFileButtonList();
         for (var i = 0; i < splittedAddress.length; i++) {
             switch (i) {
                 case 0: // Protocol (http(s))
@@ -59,14 +60,9 @@ class SessionHandler {
                         $("#error-dialog").modal("show");
                     } else {
                         var fileList = response["fileList"];
-
-                        if (JSON.stringify(handler.lastFileList) != JSON.stringify(fileList)
-                            || handler.pendingViewRegen) {
-                            handler.pendingViewRegen = false;
+                        var finishGeneration = function() {
                             handler.createEmptyFileButtonList();
-                            handler.lastFileList = fileList;
                             container.innerHTML = "";
-
                             if (response["parentAvailable"]) {
                                 var item = new FileItem("..", "", false, handler);
                                 var tooltip = new TooltipContainer("Parent directory", item.get());
@@ -74,6 +70,7 @@ class SessionHandler {
                                 item.setIcon("assets/img/folder.svg");
                                 item.disableSelected = true;
                                 tooltip.get().appendChild(item.get());
+                                item.fadeIn(null);
 
                                 container.appendChild(tooltip.get());
                             }
@@ -85,11 +82,32 @@ class SessionHandler {
                                 var item = new FileItem(filename, "", isFile, handler);
                                 var tooltip = new TooltipContainer(filename, item.get());
                                 item.directory = handler.getAbsoluteDirectory(filename);
+                                item.fadeIn(null);
 
                                 container.appendChild(tooltip.get());
                             }
 
                             document.getElementById("current-directory-text").innerHTML = handler.currentDirectory;
+                        };
+
+                        if (JSON.stringify(handler.lastFileList) != JSON.stringify(fileList)
+                            || handler.pendingViewRegen) {
+                            handler.pendingViewRegen = false;
+                            handler.lastFileList = fileList;
+                            var fileButtonCount = handler.fileButtonList.length;
+                            var finishedFadeCount = 0;
+                            if (fileButtonCount > 0) {
+                                for (var i = 0; i < fileButtonCount; i++) {
+                                    handler.fileButtonList[i].fadeOut(function() {
+                                        finishedFadeCount++;
+                                        if (finishedFadeCount >= fileButtonCount) {
+                                            finishGeneration();
+                                        }
+                                    });
+                                }
+                            } else {
+                                finishGeneration();
+                            }
                         }
                     }
                 }
