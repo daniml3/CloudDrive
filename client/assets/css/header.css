@@ -1,0 +1,23 @@
+.app-name {
+  color: gray;
+  font-family: inherit;
+  max-width: min-content;
+  font-size: 36px;
+  font-weight: 600;
+  background-color: var(--color-main);
+  border-radius: 30px;
+  padding: 10px;
+}
+
+.header-column {
+  background: var(--header-background);
+  border-width: 0px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 30px;
+  border-bottom-left-radius: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}

@@ -1,0 +1,11 @@
+.modal-title {
+  color: var(--color-main-text)
+}
+
+.modal-content {
+   background-color: var(--color-main);
+}
+
+.modal-content  {
+  border-radius: 15px;
+}

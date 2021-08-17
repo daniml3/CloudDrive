@@ -1,0 +1,56 @@
+:root {
+  --color-main: white;
+  --color-main-text: black;
+  --color-main-shadow: gray;
+  --header-background: rgb(208, 208, 208);
+}
+
+body {
+  background: var(--color-main);
+  color: var(--color-main-text);
+}
+
+.max-width {
+  max-width: 100%;
+}
+
+.wrap-content {
+  max-width: min-content;
+}
+
+input[type=text] {
+  width: 100%;
+}
+
+.unclickable {
+    pointer-events: none;
+}
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.rounded-status-text {
+  color: var(--color-main-text);
+  font-family: inherit;
+  font-size: 16px;
+  background-color: var(--color-main);
+  border-radius: 30px;
+  padding: 10px;
+  margin-top: 8px;
+  overflow-wrap: break-word;
+}
+
+.align-end {
+  margin-left: auto;
+}
+
+.padding-10 {
+  padding: 10px;
+}

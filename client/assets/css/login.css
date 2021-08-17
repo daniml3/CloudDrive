@@ -1,0 +1,17 @@
+.login-title {
+  font-weight: 600;
+}
+
+.login-dialog {
+  margin: auto;
+  margin-top: 150px;
+  width: fit-content;
+  background-color: var(--header-background);
+  border-radius: 15px;
+  text-align: center;
+  padding: 25px;
+}
+
+.login-container {
+  padding: 25px;
+}

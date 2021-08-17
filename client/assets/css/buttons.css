@@ -1,0 +1,50 @@
+.material-button {
+  background-color: var(--color-main);
+  color: var(--color-main-text);
+  border-radius: 30px;
+  border-color: transparent;
+  box-shadow: 0px 0px 10px 0.5px var(--color-main-shadow);
+  padding: 10px;
+  white-space: nowrap;
+  font-weight: 600;
+  transition: box-shadow 0.3s ease, transform 0.25s ease, background-color 0.3s ease;
+  margin: 10px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.material-button:hover {
+    box-shadow: 0px 0px 15px 2px var(--color-main-shadow);
+}
+
+.material-button:active {
+  transform: scale(0.95);
+}
+
+.file-item {
+  width: 150px;
+  border-radius: 15px;
+}
+
+.file-item-selected {
+  background-color: cornflowerblue;
+}
+
+.file-item-container {
+  text-align: center;
+  padding-left: 20%;
+  padding-right: 20%;
+}
+
+@media all and (max-width: 800px) {
+  .file-item-container {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}
+
