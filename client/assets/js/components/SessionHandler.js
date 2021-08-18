@@ -40,6 +40,13 @@ class SessionHandler {
         var container = document.getElementById("file-button-container");
         var handler = this;
 
+        if (!document.hasFocus() && shouldReSchedule) {
+            document.body.onfocus = function() {
+                handler.generateItemViews(true);
+            };
+            return;
+        }
+
         formData.append("targetDirectory", this.currentDirectory);
         request.open("POST", this.APICall("/readdir"));
         request.onreadystatechange = function () {
