@@ -49,10 +49,15 @@ class AuthHandler {
         request.onreadystatechange = function () {
             if (request.readyState === XMLHttpRequest.DONE) {
                 var response = JSON.parse(request.responseText)
+                var sessionShouldPersist = document.getElementById("remember-session-switch").checked;
                 if (!response["error"]) {
                     handler.token = response["sessionToken"];
                     handler.loggedIn = true;
-                    document.cookieHandler.setCookie(handler.tokenCookieKey, handler.token);
+                    if (sessionShouldPersist) {
+                        document.cookieHandler.setPersistentCookie(handler.tokenCookieKey, handler.token, 1);
+                    } else {
+                        document.cookieHandler.setCookie(handler.tokenCookieKey, handler.token);
+                    }
                 }
                 if (callback) {
                     callback(handler.loggedIn);

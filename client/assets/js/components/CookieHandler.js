@@ -7,6 +7,13 @@ class CookieHandler {
         document.cookie = key + "=" + value;
     }
 
+    setPersistentCookie(key, value, durationDays) {
+        var date = new Date();
+        date.setTime(date.getTime() + (durationDays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + date.toUTCString();
+        document.cookie = key + "=" + value + ";" + expires + ";path=/";
+    }
+
     getCookie(key) {
         return this.getCookieDefault(key, null);
     }

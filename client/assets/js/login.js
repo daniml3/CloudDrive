@@ -24,7 +24,7 @@ window.onload = function() {
 
     document.getElementById("save-preferences-button").onclick = function() {
         var darkModeSwitch = document.getElementById("dark-mode-switch");
-        cookieHandler.setCookie(themeHandler.darkModeEnabledCookie, darkModeSwitch.checked);
+        cookieHandler.setPersistentCookie(themeHandler.darkModeEnabledCookie, darkModeSwitch.checked, 365);
         themeHandler.configureCurrentTheme();
         $("#preferences-dialog").modal("hide");
     };
