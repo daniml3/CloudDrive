@@ -1,9 +1,8 @@
 class SessionHandler {
     cosntructor() {
         this.createEmptyFileButtonList();
-        this.lastFileList = [];
-        this.skipAutoViewGeneration = false;
-        this.pendingViewRegen = true;
+        this.lastFileList = null;
+        this.directoryChanging = true;
     }
 
     init() {
@@ -51,7 +50,7 @@ class SessionHandler {
         request.open("POST", this.APICall("/readdir"));
         request.onreadystatechange = function () {
             if (request.readyState === XMLHttpRequest.DONE) {
-                if (!(handler.skipAutoViewGeneration && shouldReSchedule)) {
+                if (true) {
                     var response = (request.status == 200) ? JSON.parse(request.responseText) : {};
                     if (request.status == 200 && response["error"]) {
                         document.getElementById("error-message").innerHTML = response["errorMessage"];
@@ -89,7 +88,11 @@ class SessionHandler {
                                 var item = new FileItem(filename, "", isFile, handler);
                                 var tooltip = new TooltipContainer(filename, item.get());
                                 item.directory = handler.getAbsoluteDirectory(filename);
-                                item.fadeIn(null);
+                                item.fadeIn(function() {
+                                    if (i >= fileList.length) {
+                                        handler.directoryChanging = false;
+                                    }
+                                });
 
                                 container.appendChild(tooltip.get());
                             }
@@ -97,9 +100,7 @@ class SessionHandler {
                             document.getElementById("current-directory-text").innerHTML = handler.currentDirectory;
                         };
 
-                        if (JSON.stringify(handler.lastFileList) != JSON.stringify(fileList)
-                            || handler.pendingViewRegen) {
-                            handler.pendingViewRegen = false;
+                        if (JSON.stringify(handler.lastFileList) != JSON.stringify(fileList)) {
                             handler.lastFileList = fileList;
                             var fileButtonCount = handler.fileButtonList.length;
                             var finishedFadeCount = 0;
@@ -119,7 +120,6 @@ class SessionHandler {
                     }
                 }
 
-                handler.skipAutoViewGeneration = false;
                 if (shouldReSchedule) {
                     window.setTimeout(function() {
                         handler.generateItemViews(true)
@@ -140,15 +140,13 @@ class SessionHandler {
     }
 
     enterDirectory(directory) {
-        if (this.currentDirectory == directory) {
+        if (this.currentDirectory == directory || this.directoryChanging) {
             return;
         }
 
         console.log("Entering to the directory " + directory);
         this.currentDirectory = directory;
-        this.skipAutoViewGeneration = true;
-        this.pendingViewRegen = true;
-        this.generateItemViews();
+        this.directoryChanging = true;
     }
 
     getAbsoluteDirectory(dir) {
