@@ -30,21 +30,10 @@ class SessionHandler {
     }
 
     generateItemViews() {
-        this.generateItemViews(false);
-    }
-
-    generateItemViews(shouldReSchedule) {
         var formData = new FormData();
         var request = new XMLHttpRequest();
         var container = document.getElementById("file-button-container");
         var handler = this;
-
-        if (!document.hasFocus() && shouldReSchedule) {
-            document.body.onfocus = function() {
-                handler.generateItemViews(true);
-            };
-            return;
-        }
 
         formData.append("targetDirectory", this.currentDirectory);
         request.open("POST", this.APICall("/readdir"));
@@ -119,12 +108,6 @@ class SessionHandler {
                         }
                     }
                 }
-
-                if (shouldReSchedule) {
-                    window.setTimeout(function() {
-                        handler.generateItemViews(true)
-                    }, 500);
-                }
             }
         };
 
@@ -147,6 +130,8 @@ class SessionHandler {
         console.log("Entering to the directory " + directory);
         this.currentDirectory = directory;
         this.directoryChanging = true;
+        this.generateItemViews();
+        this.watchCurrentDirectory();
     }
 
     getAbsoluteDirectory(dir) {
@@ -172,7 +157,31 @@ class SessionHandler {
 
     startFileItemLoop() {
         this.enterDirectory("/");
-        this.generateItemViews(true);
+    }
+
+    watchCurrentDirectory() {
+        if (this.directoryWatcher != null) {
+            if (this.directoryWatcher.status != 200) {
+                this.directoryWatcher.abort();
+            }
+        }
+
+        this.directoryWatcher = new XMLHttpRequest();
+        var request = this.directoryWatcher;
+        var formData = new FormData();
+        var container = document.getElementById("file-button-container");
+        var handler = this;
+
+        formData.append("targetDirectory", this.currentDirectory);
+        request.open("POST", this.APICall("/watchdir"));
+        request.onreadystatechange = function () {
+            if (request.readyState === XMLHttpRequest.DONE) {
+                handler.generateItemViews();
+                handler.watchCurrentDirectory();
+            }
+        };
+
+        request.send(formData);
     }
 
     goToMain() {
