@@ -19,7 +19,7 @@ function verifyTokenInternal(req, res, next, temporalToken) {
 
     response["error"] = true;
     response["denied"] = true;
-    response["errorMessage"] = "Invalid credentials";
+    response["errorMessage"] = "Invalid credentials" + (temporalToken ? "" : " (session invalid or expired)");
     res.send(response);
 }
 
