@@ -2,6 +2,7 @@ var multiparty = require("multiparty");
 var fs = require("fs");
 var formparser = require("../middleware/formparser.js");
 var tokenVerifier = require("../middleware/tokenverifier.js");
+var actionVerifier = require("../middleware/actionverifier.js");
 
 const neededFormKeys = ["targetDirectory"];
 
@@ -10,12 +11,7 @@ module.exports = function (app) {
         formparser.parseForm(req, res, neededFormKeys, function(fields, files, generatedForm, response) {
             var targetDirectory = generatedForm["targetDirectory"];
 
-            if (targetDirectory.includes("..")) {
-                global.LOG(global.WARNING, "Tried to perform an illegal operation "
-                           + "(tried to access to the directory " + targetDirectory + ")");
-                response["error"] = true;
-                response["errorMessage"] = "Illegal request";
-                res.send(response);
+            if (actionVerifier.isPathIllegal(res, targetDirectory)) {
                 return;
             }
 
