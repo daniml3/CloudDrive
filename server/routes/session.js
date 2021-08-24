@@ -4,7 +4,7 @@ var credentialManager = require('../auth/credentialmanager.js');
 var formparser = require("../middleware/formparser.js");
 var tokenVerifier = require("../middleware/tokenverifier.js");
 
-const neededFormKeys1 = ["username", "password"];
+const neededFormKeys1 = ["username", "password", "sessionLongevity"];
 const neededFormKeys2 = ["token"];
 const neededFormKeys3 = ["token", "tokenLongevitySeconds"];
 
@@ -13,7 +13,8 @@ module.exports = function (app) {
         formparser.parseForm(req, res, neededFormKeys1, function(fields, files, generatedForm, response) {
             var username = generatedForm["username"];
             var password = generatedForm["password"];
-            var generatedToken = credentialManager.generateToken(username, password);
+            var longevity = generatedForm["sessionLongevity"] * 1000;
+            var generatedToken = credentialManager.generateToken(username, password, longevity);
 
             if (!generatedToken) {
                 response["error"] = true;

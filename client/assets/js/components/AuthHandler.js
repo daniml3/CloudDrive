@@ -39,7 +39,7 @@ class AuthHandler {
     }
 
 
-    login(username, password, callback) {
+    login(username, password, longevity, callback) {
         var formData = new FormData();
         var request = new XMLHttpRequest();
         var sessionHandler = document.sessionHandler;
@@ -66,6 +66,7 @@ class AuthHandler {
         };
         formData.append("username", username);
         formData.append("password", password);
+        formData.append("sessionLongevity", longevity);
         request.send(formData);
     }
 

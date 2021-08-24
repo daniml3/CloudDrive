@@ -32,13 +32,14 @@ window.onload = function() {
     document.getElementById("login-button").onclick = function() {
         var username = document.getElementById("username-input").value;
         var password = document.getElementById("password-input").value;
+        var longevitySeconds = document.getElementById("session-longevity").value;
         var statusText = document.getElementById("login-status-text");
 
         if (!(username && password)) {
             statusText.innerHTML = "Missing credentials";
         } else {
             statusText.innerHTML = "Verifying credentials";
-            authHandler.login(username, password, function(loggedIn) {
+            authHandler.login(username, password, longevitySeconds, function(loggedIn) {
                 if (loggedIn) {
                     statusText.innerHTML = "Redirecting";
                     animator.fade(document.body, 0, 0.05, function() {

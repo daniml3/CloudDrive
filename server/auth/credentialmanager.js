@@ -34,7 +34,7 @@ function getToken(reference) {
     return hash((referenceToken & timestampToken).toString());
 }
 
-function generateToken(username, password) {
+function generateToken(username, password, longevity) {
     if (insecure) {
         return getToken("INSECURE");
     }
@@ -47,7 +47,7 @@ function generateToken(username, password) {
         return null;
     }
 
-    return generateTokenInternal(username, sessionTokenLongevity, tokenList);
+    return generateTokenInternal(username, longevity, tokenList);
 }
 
 function generateTemporalToken(token, longevity) {
