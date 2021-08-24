@@ -54,3 +54,13 @@ input[type=text] {
 .padding-10 {
   padding: 10px;
 }
+
+.current-directory-text-loading {
+    animation: constant-fade 2s infinite;
+    animation-duration: 2s;
+}
+
+@keyframes constant-fade {
+  0%,100% { opacity: 1 }
+  50% { opacity: 0.25 }
+}

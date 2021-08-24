@@ -56,6 +56,7 @@ class SessionHandler {
                     } else {
                         var fileList = response["fileList"];
                         var finishGeneration = function() {
+                            var currentDirectoryDiv = document.getElementById("current-directory-text");
                             handler.createEmptyFileButtonList();
                             container.innerHTML = "";
                             if (response["parentAvailable"]) {
@@ -89,7 +90,10 @@ class SessionHandler {
                                 container.appendChild(tooltip.get());
                             }
 
-                            document.getElementById("current-directory-text").innerHTML = handler.currentDirectory;
+                            currentDirectoryDiv.innerHTML = handler.currentDirectory;
+                            if (currentDirectoryDiv.classList.contains("current-directory-text-loading")) {
+                                currentDirectoryDiv.classList.remove("current-directory-text-loading");
+                            }
                         };
 
                         if (JSON.stringify(handler.lastFileList) != JSON.stringify(fileList)) {
@@ -133,6 +137,7 @@ class SessionHandler {
         console.log("Entering to the directory " + directory);
         this.currentDirectory = directory;
         this.directoryChanging = true;
+        document.getElementById("current-directory-text").classList.add("current-directory-text-loading");
         this.generateItemViews();
     }
 
