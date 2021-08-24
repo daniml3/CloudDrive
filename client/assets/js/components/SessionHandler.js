@@ -56,6 +56,12 @@ class SessionHandler {
                     } else {
                         var fileList = response["fileList"];
                         var finishGeneration = function() {
+                            var onGenerationFinish = function() {
+                                if (handler.directoryChanging) {
+                                    handler.watchCurrentDirectory();
+                                }
+                                handler.directoryChanging = false;
+                            };
                             var currentDirectoryDiv = document.getElementById("current-directory-text");
                             handler.createEmptyFileButtonList();
                             container.innerHTML = "";
@@ -79,15 +85,16 @@ class SessionHandler {
                                 var tooltip = new TooltipContainer(filename, item.get());
                                 item.directory = handler.getAbsoluteDirectory(filename);
                                 item.fadeIn(function() {
-                                    if (i >= fileList.length) {
-                                        if (handler.directoryChanging) {
-                                            handler.watchCurrentDirectory();
-                                        }
-                                        handler.directoryChanging = false;
+                                    if (i >= fileList.length - 1) {
+                                        onGenerationFinish();
                                     }
                                 });
 
                                 container.appendChild(tooltip.get());
+                            }
+
+                            if (fileList.length <= 0) {
+                                onGenerationFinish();
                             }
 
                             currentDirectoryDiv.innerHTML = handler.currentDirectory;
