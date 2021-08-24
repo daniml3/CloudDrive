@@ -1,7 +1,8 @@
 var crypto = require("crypto");
 
 const randomNumberMax = 1000;
-const sessionTokenLongevity = 6 * 60 * 1000 * 60; // 6 hours
+const maxSessionTokenLongevity = 6 * 60 * 1000 * 60; // 6 hours
+const maxTemporalTokenLongevity = 1 * 60 * 1000 * 60; // 1 hour
 
 var tokenList = [];
 var temporalTokenList = [];
@@ -39,6 +40,10 @@ function generateToken(username, password, longevity) {
         return getToken("INSECURE");
     }
 
+    if (longevity > maxSessionTokenLongevity) {
+        longevity = maxSessionTokenLongevity;
+    }
+
     var databasePassword = authDatabase[username];
     var requestedPassword = hash(password);
     var token;
@@ -53,6 +58,10 @@ function generateToken(username, password, longevity) {
 function generateTemporalToken(token, longevity) {
     if (insecure) {
         return getToken("INSECURE");
+    }
+
+    if (longevity > maxTemporalTokenLongevity) {
+        longevity = maxTemporalTokenLongevity;
     }
 
     if (!isTokenValid(token)) {
