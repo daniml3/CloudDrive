@@ -2,7 +2,7 @@ var crypto = require("crypto");
 var logger = require("../utils/logger.js");
 
 const randomNumberMax = 1000;
-const maxSessionTokenLongevity = 6 * 60 * 1000 * 60; // 6 hours
+const maxSessionTokenLongevity = 48 * 60 * 1000 * 60; // 48 hours
 const maxTemporalTokenLongevity = 1 * 60 * 1000 * 60; // 1 hour
 
 var tokenList = [];
