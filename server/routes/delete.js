@@ -3,6 +3,7 @@ var fs = require("fs");
 var formparser = require("../middleware/formparser.js");
 var tokenVerifier = require("../middleware/tokenverifier.js");
 var actionVerifier = require("../middleware/actionverifier.js");
+var logger = require("../utils/logger.js");
 
 const neededFormKeys = ["targetPath", "isFile"];
 
@@ -26,7 +27,7 @@ module.exports = function (app) {
                     fs.rmdirSync(directory, {recursive: true})
                 }
             } catch (err) {
-                global.LOG(global.ERROR, err);
+                logger.LOG(global.ERROR, err);
                 response["error"] = true;
                 response["errorMessage"] = "Unknown error while deleting the path";
             }
