@@ -3,6 +3,7 @@ var fs = require("fs");
 var formparser = require("../middleware/formparser.js");
 var tokenVerifier = require("../middleware/tokenverifier.js");
 var actionVerifier = require("../middleware/actionverifier.js");
+var logger = require("../utils/logger.js");
 
 const neededFormKeys = ["targetDirectory", "isInitialChunk", "isLastChunk"];
 
@@ -34,16 +35,16 @@ module.exports = function (app) {
                         }
                     } catch (err) {}
                     if (isInitialChunk == "true") {
-                        global.LOG(global.INFO, "Receiving initial chunk for file " + filename);
+                        logger.LOG(logger.INFO, "Receiving initial chunk for file " + filename);
                         fs.copyFileSync(origin, target + filename);
                     } else {
-                        global.LOG(global.INFO, "Receiving chunk for file " + filename);
+                        logger.LOG(logger.INFO, "Receiving chunk for file " + filename);
                         data = fs.readFileSync(origin);
                         fs.appendFileSync(target + filename, data);
                     }
 
                     if (isLastChunk == "true") {
-                        global.LOG(global.INFO, "Finished receiving chunks, moving the file");
+                        logger.LOG(logger.INFO, "Finished receiving chunks, moving the file");
                         var origin = target + filename;
                         target = global.fileStorage + targetDirectory + "/" + filename;
                         fs.copyFileSync(origin, target);
@@ -51,7 +52,7 @@ module.exports = function (app) {
                     }
                 }
             } catch (err) {
-                global.LOG(global.ERROR, err);
+                logger.LOG(logger.ERROR, err);
                 response["error"] = true;
                 response["errorMessage"] = "Failed to copy the file(s)";
             }

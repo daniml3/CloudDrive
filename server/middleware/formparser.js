@@ -1,4 +1,5 @@
 var multiparty = require("multiparty");
+var logger = require("../utils/logger.js");
 
 function parseForm(req, res, neededFormKeys, callback) {
     var form = new multiparty.Form();
@@ -20,7 +21,7 @@ function parseForm(req, res, neededFormKeys, callback) {
         for (i = 0; i < neededFormKeys.length; i++ ) {
             var key = neededFormKeys[i];
             if (!generatedForm[key]) {
-                global.LOG(global.ERROR, "Missing form key " + key);
+                logger.LOG(logger.ERROR, "Missing form key " + key);
                 response["error"] = true;
                 response["errorMessage"] = "Missing form key " + key;
                 res.send(response);
