@@ -54,7 +54,7 @@ class AuthHandler {
                     handler.token = response["sessionToken"];
                     handler.loggedIn = true;
                     if (sessionShouldPersist) {
-                        document.cookieHandler.setPersistentCookie(handler.tokenCookieKey, handler.token, 1);
+                        document.cookieHandler.setPersistentCookie(handler.tokenCookieKey, handler.token, (longevity / 86400));
                     } else {
                         document.cookieHandler.setCookie(handler.tokenCookieKey, handler.token);
                     }
