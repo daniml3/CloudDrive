@@ -2,7 +2,7 @@ function isPathIllegal(res, path) {
     var response = {};
 
     if (path.includes("..")) {
-        global.LOG(global.WARNING, "Tried to perform an illegal operation "
+        logger.LOG(logger.WARNING, "Tried to perform an illegal operation "
                    + "(tried to access to the directory " + path + ")");
         response["error"] = true;
         response["errorMessage"] = "Illegal request";

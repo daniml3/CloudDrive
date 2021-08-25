@@ -1,4 +1,5 @@
 var crypto = require("crypto");
+var logger = require("../utils/logger.js");
 
 const randomNumberMax = 1000;
 const maxSessionTokenLongevity = 6 * 60 * 1000 * 60; // 6 hours
@@ -123,7 +124,7 @@ function parseConfig(config) {
         throw "Invalid hash " + passwordHash;
     }
 
-    global.LOG(global.INFO, "Successfully loaded the auth config");
+    logger.LOG(logger.INFO, "Successfully loaded the auth config");
     insecure = false;
 }
 
