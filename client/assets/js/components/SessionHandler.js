@@ -34,6 +34,12 @@ class SessionHandler {
         var request = new XMLHttpRequest();
         var container = document.getElementById("file-button-container");
         var handler = this;
+        var onGenerationFinish = function() {
+           if (handler.directoryChanging) {
+               handler.watchCurrentDirectory();
+           }
+           handler.directoryChanging = false;
+        };
 
         formData.append("targetDirectory", this.currentDirectory);
         request.open("POST", this.APICall("/readdir"));
@@ -50,18 +56,14 @@ class SessionHandler {
                             }, 1500);
                         }
                         handler.enterDirectory("/");
+                        onGenerationFinish();
                     } else if (request.status != 200) {
                         document.getElementById("error-message").innerHTML = "Failed to connect to the server";
                         $("#error-dialog").modal("show");
+                        onGenerationFinish();
                     } else {
                         var fileList = response["fileList"];
                         var finishGeneration = function() {
-                            var onGenerationFinish = function() {
-                                if (handler.directoryChanging) {
-                                    handler.watchCurrentDirectory();
-                                }
-                                handler.directoryChanging = false;
-                            };
                             var currentDirectoryDiv = document.getElementById("current-directory-text");
                             handler.createEmptyFileButtonList();
                             container.innerHTML = "";
