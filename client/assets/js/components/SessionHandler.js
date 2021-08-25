@@ -189,7 +189,7 @@ class SessionHandler {
         formData.append("targetDirectory", this.currentDirectory);
         request.open("POST", this.APICall("/watchdir"));
         request.onreadystatechange = function () {
-            if (request.readyState === XMLHttpRequest.DONE) {
+            if (request.readyState === XMLHttpRequest.DONE && request.status == 200) {
                 handler.generateItemViews();
                 handler.watchCurrentDirectory();
             }
