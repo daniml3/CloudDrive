@@ -53,15 +53,10 @@ class SessionHandler {
                     } else if (request.status != 200) {
                         document.getElementById("error-message").innerHTML = "Failed to connect to the server";
                         $("#error-dialog").modal("show");
+                        handler.directoryChanging = false;
                     } else {
                         var fileList = response["fileList"];
                         var finishGeneration = function() {
-                            var onGenerationFinish = function() {
-                                if (handler.directoryChanging) {
-                                    handler.watchCurrentDirectory();
-                                }
-                                handler.directoryChanging = false;
-                            };
                             var currentDirectoryDiv = document.getElementById("current-directory-text");
                             handler.createEmptyFileButtonList();
                             container.innerHTML = "";
@@ -86,7 +81,7 @@ class SessionHandler {
                                 item.directory = handler.getAbsoluteDirectory(filename);
                                 item.fadeIn(function() {
                                     if (i >= fileList.length - 1) {
-                                        onGenerationFinish();
+                                        handler.directoryChanging = false;
                                     }
                                 });
 
@@ -94,7 +89,7 @@ class SessionHandler {
                             }
 
                             if (fileList.length <= 0) {
-                                onGenerationFinish();
+                                handler.directoryChanging = false;
                             }
 
                             currentDirectoryDiv.innerHTML = handler.currentDirectory;
@@ -146,6 +141,7 @@ class SessionHandler {
         this.directoryChanging = true;
         document.getElementById("current-directory-text").classList.add("current-directory-text-loading");
         this.generateItemViews();
+        this.watchCurrentDirectory();
     }
 
     getAbsoluteDirectory(dir) {
@@ -175,7 +171,7 @@ class SessionHandler {
 
     watchCurrentDirectory() {
         if (this.directoryWatcher != null) {
-            if (this.directoryWatcher.status != 200) {
+            if (this.directoryWatcher.status == 0) {
                 this.directoryWatcher.abort();
             }
         }
@@ -189,8 +185,23 @@ class SessionHandler {
         formData.append("targetDirectory", this.currentDirectory);
         request.open("POST", this.APICall("/watchdir"));
         request.onreadystatechange = function () {
-            if (request.readyState === XMLHttpRequest.DONE && request.status == 200) {
-                handler.generateItemViews();
+            if (request.readyState === XMLHttpRequest.DONE && request.status != 0) {
+                switch (request.status) {
+                    case 200:
+                        handler.generateItemViews();
+                        break;
+                    case 502:
+                    case 503:
+                    case 504:
+                        document.getElementById("error-message").innerHTML =
+                            "Server connection error (" + request.status + "), refreshing session";
+                        $("#error-dialog").modal("show");
+                        setTimeout(function() {
+                            handler.goToMain();
+                        }, 2000);
+                        break;
+                }
+
                 handler.watchCurrentDirectory();
             }
         };
