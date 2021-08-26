@@ -57,9 +57,6 @@ class SessionHandler {
                         var fileList = response["fileList"];
                         var finishGeneration = function() {
                             var onGenerationFinish = function() {
-                                if (handler.directoryChanging) {
-                                    handler.watchCurrentDirectory();
-                                }
                                 handler.directoryChanging = false;
                             };
                             var currentDirectoryDiv = document.getElementById("current-directory-text");
@@ -146,6 +143,7 @@ class SessionHandler {
         this.directoryChanging = true;
         document.getElementById("current-directory-text").classList.add("current-directory-text-loading");
         this.generateItemViews();
+        this.watchCurrentDirectory();
     }
 
     getAbsoluteDirectory(dir) {
@@ -189,8 +187,10 @@ class SessionHandler {
         formData.append("targetDirectory", this.currentDirectory);
         request.open("POST", this.APICall("/watchdir"));
         request.onreadystatechange = function () {
-            if (request.readyState === XMLHttpRequest.DONE && request.status == 200) {
-                handler.generateItemViews();
+            if (request.readyState === XMLHttpRequest.DONE && request.status != 0) {
+                if (request.status == 200) {
+                    handler.generateItemViews();
+                }
                 handler.watchCurrentDirectory();
             }
         };
