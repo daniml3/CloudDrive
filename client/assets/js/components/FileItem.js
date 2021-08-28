@@ -25,7 +25,7 @@ class FileItem extends MaterialButton {
 
                     document.getElementById("download-file-button").onclick = function() {
                         var longevitySeconds = document.getElementById("download-url-longevity").value;
-                        document.authHandler.getTemporalToken(longevitySeconds, function (token) {
+                        document.authHandler.getTemporalToken(longevitySeconds, item.absoluteDirectory, function (token) {
                             window.open(sessionHandler.APICallWithToken("/download" + item.absoluteDirectory, token));
                         });
                     };
@@ -34,7 +34,7 @@ class FileItem extends MaterialButton {
                     var originalButtonText = genFileUrlButton.innerHTML;
                     genFileUrlButton.onclick = function() {
                         var longevitySeconds = document.getElementById("download-url-longevity").value;
-                        document.authHandler.getTemporalToken(longevitySeconds, function (token) {
+                        document.authHandler.getTemporalToken(longevitySeconds, item.absoluteDirectory, function (token) {
                             var txt = sessionHandler.APICallWithToken("/download" + item.absoluteDirectory, token);
                             copyToClipboard(txt);
                             genFileUrlButton.innerHTML = "Copied!";
