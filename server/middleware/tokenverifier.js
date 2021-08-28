@@ -1,16 +1,17 @@
 var multiparty = require("multiparty");
 var credentialManager = require('../auth/credentialmanager.js');
+var logger = require("../utils/logger.js");
 
 const neededFormKeys = ["sessionToken"];
 
-function verifyTokenInternal(req, res, next, temporalToken) {
+function verifyTokenInternal(req, res, next, temporalToken, filePath) {
     var token = req.query.sessionToken;
     var isTokenValid;
     var response = {};
 
     if (token) {
         isTokenValid = temporalToken ?
-            credentialManager.isTemporalTokenValid(token) : credentialManager.isTokenValid(token);
+            credentialManager.isTemporalTokenValid(token, filePath) : credentialManager.isTokenValid(token);
         if (isTokenValid) {
             next();
             return;
@@ -24,11 +25,23 @@ function verifyTokenInternal(req, res, next, temporalToken) {
 }
 
 function verifyToken(req, res, next) {
-    verifyTokenInternal(req, res, next, false);
+    verifyTokenInternal(req, res, next, false, null);
 };
 
 function verifyTemporalToken(req, res, next) {
-    verifyTokenInternal(req, res, next, true);
+    var filePath = "";
+    var splittedPath = req.originalUrl.split("/");
+
+    for (var i = 0; i < splittedPath.length; i++) {
+        if (i >= 2) {
+            filePath += "/";
+            filePath += splittedPath[i];
+        }
+    }
+
+    filePath = filePath.split("?")[0];
+
+    verifyTokenInternal(req, res, next, true, filePath);
 };
 
 module.exports = {

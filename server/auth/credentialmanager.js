@@ -1,5 +1,6 @@
 var crypto = require("crypto");
 var logger = require("../utils/logger.js");
+var fs = require("fs");
 
 const randomNumberMax = 1000;
 const maxSessionTokenLongevity = 48 * 60 * 1000 * 60; // 48 hours
@@ -57,7 +58,8 @@ function generateToken(username, password, longevity) {
     return generateTokenInternal(username, longevity, tokenList, tokensToRevoke);
 }
 
-function generateTemporalToken(token, longevity) {
+function generateTemporalToken(token, longevity, filePath) {
+    var tokenData = {};
     if (insecure) {
         return getToken("INSECURE");
     }
@@ -66,11 +68,30 @@ function generateTemporalToken(token, longevity) {
         longevity = maxTemporalTokenLongevity;
     }
 
-    if (!isTokenValid(token)) {
+    if (!isTokenValid(token) || !filePath) {
         return null;
     }
 
-    return generateTokenInternal(token, longevity, temporalTokenList, temporalTokensToRevoke);
+    try {
+        var generatedToken = getToken(token);
+
+        tokenData["token"] = generatedToken;
+        tokenData["filePath"] = filePath;
+
+        temporalTokenList.push(tokenData);
+        if (longevity > 0) {
+            setTimeout(function() {
+                removeElementFromArray(temporalTokenList, tokenData);
+            }, longevity);
+        } else {
+            temporalTokensToRevoke.push(tokenData);
+        }
+
+        return generatedToken;
+    } catch (err) {
+        console.log(err);
+        return null;
+    }
 }
 
 function generateTokenInternal(reference, longevity, tokenArray, revokeList) {
@@ -97,8 +118,33 @@ function isTokenValid(token) {
     return isTokenValidInternal(token, tokenList, tokensToRevoke);
 }
 
-function isTemporalTokenValid(token) {
-    return isTokenValidInternal(token, temporalTokenList, temporalTokensToRevoke,);
+function isTemporalTokenValid(token, filePath) {
+    var isValid = false;
+    var tokenData = null;
+
+    for (var i = 0; i < temporalTokenList.length; i++) {
+        var currentTokenData = temporalTokenList[i];
+        var currentToken = currentTokenData["token"];
+        var currentFilePath = currentTokenData["filePath"];
+
+        if (currentToken == token) {
+            try {
+                if (currentFilePath == filePath) {
+                    tokenData = currentTokenData;
+                    isValid = true;
+                }
+            } catch (err) {
+                console.log(err);
+            }
+        }
+    }
+
+    if (temporalTokensToRevoke.includes(currentTokenData)) {
+        removeElementFromArray(temporalTokenList, tokenData);
+        removeElementFromArray(temporalTokensToRevoke, tokenData);
+    }
+
+    return isValid;
 }
 
 function isTokenValidInternal(token, tokenArray, revokeList) {
