@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c62012f2_23426576",
+        "filename": "server/auth/credentialmanager.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-08-28T15:28:30Z",
+      "side": 1,
+      "message": "TODO: remove this",
+      "revId": "35b8b266eade3609d5724b09aa7941393bbd9113",
+      "serverId": "0b972bbf-bc08-4bba-b7a6-f315c276b6cd",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02bedfb7_e3e0d2f9",
+        "filename": "server/auth/credentialmanager.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-08-28T15:28:30Z",
+      "side": 1,
+      "message": "TODO: remove this try / catch block",
+      "revId": "35b8b266eade3609d5724b09aa7941393bbd9113",
+      "serverId": "0b972bbf-bc08-4bba-b7a6-f315c276b6cd",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c945bc2f_15960935",
+        "filename": "server/auth/credentialmanager.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-08-28T15:28:30Z",
+      "side": 1,
+      "message": "TODO: remove this try / catch block",
+      "revId": "35b8b266eade3609d5724b09aa7941393bbd9113",
+      "serverId": "0b972bbf-bc08-4bba-b7a6-f315c276b6cd",
+      "unresolved": true
+    }
+  ]
+}
