@@ -6,6 +6,7 @@ const maxSessionTokenLongevity = 48 * 60 * 1000 * 60; // 48 hours
 const maxTemporalTokenLongevity = 1 * 60 * 1000 * 60; // 1 hour
 
 var tokenList = [];
+var tokensToRevoke = [];
 var temporalTokenList = [];
 var temporalTokensToRevoke = [];
 var passwordHash = "sha256";
@@ -53,7 +54,7 @@ function generateToken(username, password, longevity) {
         return null;
     }
 
-    return generateTokenInternal(username, longevity, tokenList);
+    return generateTokenInternal(username, longevity, tokenList, tokensToRevoke);
 }
 
 function generateTemporalToken(token, longevity) {
@@ -69,10 +70,10 @@ function generateTemporalToken(token, longevity) {
         return null;
     }
 
-    return generateTokenInternal(token, longevity, temporalTokenList);
+    return generateTokenInternal(token, longevity, temporalTokenList, temporalTokensToRevoke);
 }
 
-function generateTokenInternal(reference, longevity, tokenArray) {
+function generateTokenInternal(reference, longevity, tokenArray, revokeList) {
     var generatedToken = getToken(reference);
     tokenArray.push(generatedToken);
     if (longevity > 0) {
@@ -80,7 +81,7 @@ function generateTokenInternal(reference, longevity, tokenArray) {
             removeElementFromArray(tokenArray, generatedToken);
         }, longevity);
     } else {
-        temporalTokensToRevoke.push(generatedToken);
+        revokeList.push(generatedToken);
     }
     return generatedToken;
 }
@@ -93,15 +94,19 @@ function removeElementFromArray(array, element) {
 }
 
 function isTokenValid(token) {
-    return tokenList.includes(token) || insecure;
+    return isTokenValidInternal(token, tokenList, tokensToRevoke);
 }
 
 function isTemporalTokenValid(token) {
-    var isValid = temporalTokenList.includes(token) || insecure;
+    return isTokenValidInternal(token, temporalTokenList, temporalTokensToRevoke,);
+}
 
-    if (temporalTokensToRevoke.includes(token)) {
-        removeElementFromArray(temporalTokenList, token);
-        removeElementFromArray(temporalTokensToRevoke, token);
+function isTokenValidInternal(token, tokenArray, revokeList) {
+    var isValid = tokenArray.includes(token) || insecure;
+
+    if (revokeList.includes(token)) {
+        removeElementFromArray(tokenArray, token);
+        removeElementFromArray(revokeList, token);
     }
 
     return isValid;
