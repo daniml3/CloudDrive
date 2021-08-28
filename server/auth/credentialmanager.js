@@ -3,7 +3,7 @@ var logger = require("../utils/logger.js");
 
 const randomNumberMax = 1000;
 const maxSessionTokenLongevity = 48 * 60 * 1000 * 60; // 48 hours
-const maxTemporalTokenLongevity = 1 * 60 * 1000 * 60; // 1 hour
+const maxTemporalTokenLongevity = 24 * 60 * 1000 * 60; // 24 hours
 
 var tokenList = [];
 var tokensToRevoke = [];
