@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6ad89310_7323ed2a",
+        "filename": "server/auth/credentialmanager.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-08-28T15:46:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c62012f2_23426576",
+      "revId": "35b8b266eade3609d5724b09aa7941393bbd9113",
+      "serverId": "0b972bbf-bc08-4bba-b7a6-f315c276b6cd",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02bedfb7_e3e0d2f9",
         "filename": "server/auth/credentialmanager.js",
         "patchSetId": 3
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "b64ff5dc_c18c62ee",
+        "filename": "server/auth/credentialmanager.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-08-28T15:46:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02bedfb7_e3e0d2f9",
+      "revId": "35b8b266eade3609d5724b09aa7941393bbd9113",
+      "serverId": "0b972bbf-bc08-4bba-b7a6-f315c276b6cd",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c945bc2f_15960935",
         "filename": "server/auth/credentialmanager.js",
         "patchSetId": 3
@@ -50,6 +86,24 @@
       "revId": "35b8b266eade3609d5724b09aa7941393bbd9113",
       "serverId": "0b972bbf-bc08-4bba-b7a6-f315c276b6cd",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0612b86_4cfd6eb4",
+        "filename": "server/auth/credentialmanager.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2021-08-28T15:46:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c945bc2f_15960935",
+      "revId": "35b8b266eade3609d5724b09aa7941393bbd9113",
+      "serverId": "0b972bbf-bc08-4bba-b7a6-f315c276b6cd",
+      "unresolved": false
     }
   ]
 }
