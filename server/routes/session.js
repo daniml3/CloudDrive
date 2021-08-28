@@ -7,6 +7,7 @@ var tokenVerifier = require("../middleware/tokenverifier.js");
 const neededFormKeys1 = ["username", "password", "sessionLongevity"];
 const neededFormKeys2 = ["token"];
 const neededFormKeys3 = ["token", "tokenLongevitySeconds"];
+const neededFormKeys4 = ["token", "filePath"];
 
 module.exports = function (app) {
     app.post("/getsessiontoken", function (req, res) {
@@ -31,8 +32,9 @@ module.exports = function (app) {
     app.post("/gettemporaltoken", function (req, res) {
         formparser.parseForm(req, res, neededFormKeys2, function(fields, files, generatedForm, response) {
             var token = generatedForm["token"];
+            var filePath = generatedForm["filePath"];
             var longevityMilliseconds = generatedForm["tokenLongevitySeconds"] * 1000;
-            var generatedToken = credentialManager.generateTemporalToken(token, longevityMilliseconds);
+            var generatedToken = credentialManager.generateTemporalToken(token, longevityMilliseconds, filePath);
 
             if (!generatedToken) {
                 response["error"] = true;
