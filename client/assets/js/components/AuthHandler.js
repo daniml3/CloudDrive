@@ -87,7 +87,7 @@ class AuthHandler {
         request.send(formData);
     }
 
-    getTemporalToken(longevitySeconds, callback) {
+    getTemporalToken(longevitySeconds, filePath, callback) {
         if (!this.loggedIn) {
             return null;
         }
@@ -110,6 +110,7 @@ class AuthHandler {
 
         formData.append("token", this.token);
         formData.append("tokenLongevitySeconds", longevitySeconds);
+        formData.append("filePath", filePath);
         request.send(formData);
     }
 

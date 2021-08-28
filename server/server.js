@@ -6,7 +6,7 @@ var logger = require("./utils/logger.js");
 
 var app = express();
 
-const apiVersion = 1.0;
+const apiVersion = 1.1;
 
 global.port = process.env.CLOUDDRIVE_PORT || 3000;
 global.fileStorage = process.env.CLOUDDRIVE_STORAGE ||  __dirname + "/" + "./files/";
