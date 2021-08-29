@@ -12,9 +12,14 @@ var themeHandler = document.themeHandler;
 
 var animator = new Animator();
 
+document.onreadystatechange = function() {
+    if (document.readyState == "complete") {
+        themeHandler.configureCurrentTheme();
+    }
+};
+
 // Setup the session, the window buttons and generate the items
 window.onload = function() {
-    themeHandler.configureCurrentTheme();
     sessionHandler.init();
     authHandler.addLoggedInCallback(function() {
         sessionHandler.startFileItemLoop();
