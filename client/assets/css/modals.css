@@ -1,5 +1,6 @@
 .modal-title {
-  color: var(--color-main-text)
+  color: var(--color-main-text);
+  overflow-wrap: anywhere;
 }
 
 .modal-content {
