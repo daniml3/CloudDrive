@@ -1,8 +1,6 @@
 // Class for creating a material styled button programatically
 class MaterialButton {
 
-    maxLength = 15;
-
     constructor(content, classes) {
         this.object = document.createElement("button");
         this.object.className = "material-button " + classes;
@@ -15,14 +13,6 @@ class MaterialButton {
 
         this.childText = document.createElement("p");
         this.childText.className = "unclickable unselectable";
-
-        if (this.text.length > this.maxLength) {
-           while (this.text.length > this.maxLength - 3) {
-               this.text = this.text.slice(0, -1);
-           }
-
-           this.text += "...";
-        }
 
         this.childText.innerHTML = this.text;
         this.childText.after(this.childIcon);
