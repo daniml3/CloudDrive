@@ -5,7 +5,6 @@
   border-color: transparent;
   box-shadow: 0px 0px 10px 0.5px var(--color-main-shadow);
   padding: 10px;
-  white-space: nowrap;
   font-weight: 600;
   transition: box-shadow 0.3s ease, transform 0.25s ease, background-color 0.3s ease;
   margin: 10px;
@@ -38,7 +37,7 @@
 }
 
 .file-item-selected {
-  background-color: cornflowerblue;
+  background-color: #6495ED;
 }
 
 .file-item-container {
@@ -47,10 +46,22 @@
   padding-right: 20%;
 }
 
+.cut-element {
+  background: #FF4422EE;
+  border-radius:15px;
+  padding: 10px;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
 @media all and (max-width: 800px) {
   .file-item-container {
     padding-left: 0px;
     padding-right: 0px;
+  }
+
+  .material-button {
+    white-space: normal;
   }
 }
 
