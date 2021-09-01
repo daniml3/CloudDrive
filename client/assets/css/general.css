@@ -55,7 +55,7 @@ input[type=text] {
   padding: 10px;
 }
 
-.current-directory-text-loading {
+.constant-fade-in-out, .current-directory-text-loading {
     animation: constant-fade 2s infinite;
     animation-duration: 2s;
 }
@@ -63,4 +63,12 @@ input[type=text] {
 @keyframes constant-fade {
   0%,100% { opacity: 1 }
   50% { opacity: 0.25 }
+}
+
+.cut-element {
+  background: #FF4422EE;
+  border-radius:15px;
+  padding: 10px;
+  white-space: normal;
+  overflow-wrap: break-word;
 }
