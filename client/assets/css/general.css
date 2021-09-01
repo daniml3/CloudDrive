@@ -1,8 +1,9 @@
 :root {
-  --color-main: white;
-  --color-main-text: black;
-  --color-main-shadow: gray;
-  --header-background: rgb(208, 208, 208);
+  --color-main: #FFFFFF;
+  --color-secondary: #BBBBBB;
+  --color-main-text: #000000;
+  --color-main-shadow: #444444;
+  --header-background: #F5F5F5;
 }
 
 body {
@@ -40,7 +41,7 @@ input[type=text] {
   color: var(--color-main-text);
   font-family: inherit;
   font-size: 16px;
-  background-color: var(--color-main);
+  background-color: var(--color-secondary);
   border-radius: 30px;
   padding: 10px;
   margin-top: 8px;
