@@ -40,6 +40,7 @@ function verifyTemporalToken(req, res, next) {
     }
 
     filePath = filePath.split("?")[0];
+    filePath = decodeURI(filePath);
 
     verifyTokenInternal(req, res, next, true, filePath);
 };
