@@ -1,8 +1,8 @@
 :root {
-  --color-main: white;
-  --color-main-text: black;
-  --color-main-shadow: gray;
-  --header-background: rgb(208, 208, 208);
+  --color-main: #FFFFFF;
+  --color-main-text: #000000;
+  --color-main-shadow: #444444;
+  --header-background: #F5F5F5;
 }
 
 body {
@@ -45,6 +45,7 @@ input[type=text] {
   padding: 10px;
   margin-top: 8px;
   overflow-wrap: break-word;
+  box-shadow: 0px 0px 5px 0.25px var(--color-main-shadow);
 }
 
 .align-end {
@@ -65,10 +66,6 @@ input[type=text] {
   50% { opacity: 0.25 }
 }
 
-.cut-element {
-  background: #FF4422EE;
-  border-radius:15px;
-  padding: 10px;
-  white-space: normal;
-  overflow-wrap: break-word;
+.fill-available {
+  width: -webkit-fill-available;
 }

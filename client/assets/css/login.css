@@ -4,14 +4,30 @@
 
 .login-dialog {
   margin: auto;
-  margin-top: 150px;
+  margin-top: 10%;
   width: fit-content;
   background-color: var(--header-background);
   border-radius: 15px;
   text-align: center;
-  padding: 25px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  box-shadow: 0px 0px 10px 0.5px var(--color-main-shadow);
 }
 
 .login-container {
-  padding: 25px;
+  padding: 0px;
+}
+
+@media all and (max-width: 800px) {
+  .login-dialog {
+    width: auto;
+    padding-bottom: 0px;
+    margin: 10px;
+  }
+}
+
+@media all and (max-width: 200px) {
+  .login-dialog {
+    width: 100%;
+  }
 }

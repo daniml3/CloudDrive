@@ -1,12 +1,15 @@
 .app-name {
-  color: gray;
+  color: #808080;
   font-family: inherit;
-  max-width: min-content;
+  width: fit-content;
   font-size: 36px;
   font-weight: 600;
   background-color: var(--color-main);
   border-radius: 30px;
   padding: 10px;
+  margin: auto;
+  margin-bottom: 15px;
+  box-shadow: 0px 0px 5px 0.25px var(--color-main-shadow);
 }
 
 .header-column {
@@ -20,4 +23,11 @@
   padding-bottom: 10px;
   padding-left: 10px;
   padding-right: 10px;
+  box-shadow: 0px 0px 10px 0.5px var(--color-main-shadow);
+}
+
+@media all and (max-width: 200px) {
+  .app-name {
+    font-size: 14vw;
+  }
 }
