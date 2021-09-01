@@ -1,0 +1,79 @@
+class CutHandler {
+    constructor() {
+        this.elementList = [];
+    }
+
+    cut(filename, elementPath) {
+        if (!this.isCut(elementPath)) {
+            var element = new CutElement(filename, elementPath);
+            element.addToList();
+            this.elementList.push(element);
+        }
+    }
+
+    uncut(elementPath) {
+        var elementToUncut = this.getElementByPath(elementPath);
+        var newList = [];
+        for (var i = 0; i < this.elementList.length; i++) {
+            var element = this.elementList[i];
+            if (element != elementToUncut) {
+                newList.push(element);
+            } else {
+                element.removeFromList();
+            }
+        }
+
+        this.elementList = newList;
+    }
+
+    isCut(elementPath) {
+        return (this.getElementByPath(elementPath) != null);
+    }
+
+    getElementByPath(elementPath) {
+        for (var i = 0; i < this.elementList.length; i++) {
+            var element = this.elementList[i];
+            if (elementPath == element.elementPath) {
+                return element;
+            }
+        }
+
+        return null;
+    }
+
+    uncutAll() {
+        for (var i = 0; i < this.elementList.length; i++) {
+            this.elementList[i].removeFromList();
+        }
+        this.elementList = [];
+    }
+
+    pasteHere() {
+        if (this.elementList.length > 0) {
+            this.pasteNext();
+        }
+    }
+
+    pasteNext() {
+            var element = this.elementList[0];
+            var originPath = element.elementPath;
+            var splittedPath = originPath.split("/");
+            var targetPath = document.sessionHandler.currentDirectory + "/" + element.filename;
+
+            var formData = new FormData();
+            var request = new XMLHttpRequest();
+            var handler = this;
+
+            formData.append("originPath", originPath);
+            formData.append("targetPath", targetPath);
+            request.open("POST", sessionHandler.APICall("/move"));
+            request.onreadystatechange = function() {
+                handler.uncut(element.elementPath);
+                if (handler.elementList.length > 0) {
+                    handler.pasteNext();
+                }
+            }
+            request.send(formData);
+
+    }
+}
