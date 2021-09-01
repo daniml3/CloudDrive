@@ -4,7 +4,7 @@
 
 .login-dialog {
   margin: auto;
-  margin-top: 150px;
+  margin-top: 15%;
   width: fit-content;
   background-color: var(--header-background);
   border-radius: 15px;
