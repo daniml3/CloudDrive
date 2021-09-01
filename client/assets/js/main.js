@@ -3,12 +3,14 @@ document.deleteQueue = new DeleteQueue();
 document.authHandler = new AuthHandler();
 document.cookieHandler = new CookieHandler();
 document.themeHandler = new ThemeHandler();
+document.cutHandler = new CutHandler();
 
 var sessionHandler = document.sessionHandler;
 var deleteQueue = document.deleteQueue;
 var authHandler = document.authHandler;
 var cookieHandler = document.cookieHandler;
 var themeHandler = document.themeHandler;
+var cutHandler = document.cutHandler;
 
 var animator = new Animator();
 
@@ -93,6 +95,28 @@ window.onload = function() {
 
     document.getElementById("logout-button").onclick = function() {
         authHandler.logout();
+    };
+
+    document.getElementById("file-clipboard-button").onclick = function() {
+        $("#file-clipboard-dialog").modal("show");
+    };
+
+    document.getElementById("cut-selected-button").onclick = function() {
+        var buttonList = sessionHandler.fileButtonList;
+        for (var i = 0; i < buttonList.length; i++) {
+            var button = buttonList[i];
+            if (button.isSelected()) {
+                cutHandler.cut(button.getName(), button.absoluteDirectory);
+            }
+        }
+    };
+
+    document.getElementById("uncut-all-button").onclick = function() {
+        cutHandler.uncutAll();
+    };
+
+    document.getElementById("paste-here-button").onclick = function() {
+        cutHandler.pasteHere();
     };
 
     var request = new XMLHttpRequest();

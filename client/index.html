@@ -123,6 +123,26 @@
         </div>
     </div>
 
+    <!-- File clipboard dialog -->
+    <div class="modal fade" role="dialog" tabindex="-1" id="file-clipboard-dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">File clipboard</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="file-clipboard-container">
+                </div>
+                <div class="modal-footer">
+                    <button class="material-button" id="paste-here-button">Paste here</button>
+                    <button class="material-button" id="cut-selected-button">Cut selected</button>
+                    <button class="material-button" id="uncut-all-button" type="button">Uncut all</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <!-- Main screen -->
     <div class="container max-width">
         <div class="col-md-12 header-column">
@@ -139,6 +159,7 @@
                     <button class="material-button" id="create-directory-button">Create directory</button>
                     <button class="material-button" id="upload-file-button">Upload file</button>
                     <button class="material-button" id="delete-selected-button">Delete selected</button>
+                    <button class="material-button" id="file-clipboard-button">File clipboard</button>
                     <button class="material-button" id="preferences-button">Preferences</button>
                     <button class="material-button" id="logout-button">Logout</button>
                 </div>
@@ -158,6 +179,8 @@
     <script src="assets/js/components/AuthHandler.js?version=1.1"></script>
     <script src="assets/js/components/CookieHandler.js?version=1.1"></script>
     <script src="assets/js/components/SessionHandler.js?version=1.1"></script>
+    <script src="assets/js/components/CutElement.js?version=1.1"></script>
+    <script src="assets/js/components/CutHandler.js?version=1.1"></script>
     <script src="assets/js/components/DeleteQueue.js?version=1.1"></script>
     <script src="assets/js/main.js?version=1.1"></script>
 </body>
