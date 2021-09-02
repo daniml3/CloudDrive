@@ -5,7 +5,7 @@ class SessionHandler {
         this.directoryChanging = true;
     }
 
-    init() {
+    init(isLogin) {
         var splittedAddress = window.location.href.split("/");
         var parsedAddress = false;
         var handler = this;
@@ -29,9 +29,11 @@ class SessionHandler {
             }
         }
 
-        document.body.onfocus = function() {
-            handler.watchCurrentDirectory();
-        };
+        if (!isLogin) {
+            document.body.onfocus = function() {
+                handler.watchCurrentDirectory();
+            };
+        }
     }
 
     generateItemViews() {

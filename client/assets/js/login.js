@@ -12,7 +12,7 @@ var animator = new Animator();
 
 window.onload = function() {
     themeHandler.configureCurrentTheme();
-    sessionHandler.init();
+    sessionHandler.init(true);
     authHandler.init(true);
 
     document.getElementById("preferences-button").onclick = function() {
