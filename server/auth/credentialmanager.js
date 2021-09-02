@@ -79,11 +79,13 @@ function generateTemporalToken(token, longevity, filePath) {
     if (longevity > 0) {
         setTimeout(function() {
             removeElementFromArray(temporalTokenList, tokenData);
+            logger.LOG(logger.INFO, "Revoked the temporal token " + getShortToken(generatedToken));
         }, longevity);
     } else {
         temporalTokensToRevoke.push(tokenData);
     }
 
+    logger.LOG(logger.INFO, "Generated the temporal token " + getShortToken(generatedToken) + " with a longevity of " + longevity);
     return generatedToken;
 }
 
@@ -93,11 +95,18 @@ function generateTokenInternal(reference, longevity, tokenArray, revokeList) {
     if (longevity > 0) {
         setTimeout(function() {
             removeElementFromArray(tokenArray, generatedToken);
+            logger.LOG(logger.INFO, "Revoked the token " + getShortToken(generatedToken));
         }, longevity);
     } else {
         revokeList.push(generatedToken);
     }
+
+    logger.LOG(logger.INFO, "Generated the session token " + getShortToken(generatedToken) + " with a longevity of " + longevity);
     return generatedToken;
+}
+
+function getShortToken(token) {
+    return token.substring(0, 10) + "...";
 }
 
 function removeElementFromArray(array, element) {
@@ -131,6 +140,7 @@ function isTemporalTokenValid(token, filePath) {
     if (temporalTokensToRevoke.includes(tokenData)) {
         removeElementFromArray(temporalTokenList, tokenData);
         removeElementFromArray(temporalTokensToRevoke, tokenData);
+        logger.LOG(logger.INFO, "Revoked the temporal token " + getShortToken(tokenData["token"]));
     }
 
     return isValid;
@@ -142,6 +152,7 @@ function isTokenValidInternal(token, tokenArray, revokeList) {
     if (revokeList.includes(token)) {
         removeElementFromArray(tokenArray, token);
         removeElementFromArray(revokeList, token);
+        logger.LOG(logger.INFO, "Revoked the token " + getShortToken(token));
     }
 
     return isValid;
