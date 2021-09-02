@@ -97,6 +97,8 @@ function generateTokenInternal(reference, longevity, tokenArray, revokeList) {
     } else {
         revokeList.push(generatedToken);
     }
+
+    logger.LOG(logger.INFO, "Generated the session token " + generatedToken.substring(0, 10) + "... with a longevity of " + longevity);
     return generatedToken;
 }
 
