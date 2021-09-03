@@ -103,6 +103,8 @@ class SessionHandler {
                             if (currentDirectoryDiv.classList.contains("current-directory-text-loading")) {
                                 currentDirectoryDiv.classList.remove("current-directory-text-loading");
                             }
+
+                            handler.watchCurrentDirectory();
                         };
 
                         if (JSON.stringify(handler.lastFileList) != JSON.stringify(fileList)) {
@@ -190,6 +192,7 @@ class SessionHandler {
         var handler = this;
 
         formData.append("targetDirectory", this.currentDirectory);
+        formData.append("requestTimestamp", Date.now());
         request.open("POST", this.APICall("/watchdir"));
         request.onreadystatechange = function () {
             if (request.readyState === XMLHttpRequest.DONE && request.status != 0) {
@@ -213,6 +216,7 @@ class SessionHandler {
             }
         };
 
+        this.generateItemViews();
         request.send(formData);
     }
 

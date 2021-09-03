@@ -6,7 +6,7 @@ class CutElement {
 
     addToList() {
         var element = document.createElement("div");
-        var container = document.getElementById("cut-files-container");
+        var container = document.getElementById("file-clipboard-container");
         var cutElement = this;
 
         element.classList.add("material-button");
@@ -21,7 +21,7 @@ class CutElement {
     }
 
     removeFromList() {
-        var container = document.getElementById("cut-files-container");
+        var container = document.getElementById("file-clipboard-container");
         container.removeChild(this.element);
     }
 }

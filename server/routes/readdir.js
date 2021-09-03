@@ -4,11 +4,12 @@ var formparser = require("../middleware/formparser.js");
 var tokenVerifier = require("../middleware/tokenverifier.js");
 var actionVerifier = require("../middleware/actionverifier.js");
 
-const neededFormKeys = ["targetDirectory"];
+const neededFormKeys1 = ["targetDirectory"];
+const neededFormKeys2 = ["targetDirectory", "requestTimestamp"];
 
 module.exports = function (app) {
     app.post("/readdir", tokenVerifier.verifyToken, function (req, res) {
-        formparser.parseForm(req, res, neededFormKeys, function(fields, files, generatedForm, response) {
+        formparser.parseForm(req, res, neededFormKeys1, function(fields, files, generatedForm, response) {
             var targetDirectory = generatedForm["targetDirectory"];
 
             if (actionVerifier.isPathIllegal(res, targetDirectory)) {
@@ -35,8 +36,9 @@ module.exports = function (app) {
     });
 
     app.post("/watchdir", tokenVerifier.verifyToken, function (req, res) {
-        formparser.parseForm(req, res, neededFormKeys, function(fields, files, generatedForm, response) {
+        formparser.parseForm(req, res, neededFormKeys2, function(fields, files, generatedForm, response) {
             var targetDirectory = generatedForm["targetDirectory"];
+            var requestTimestamp = generatedForm["requestTimestamp"];
 
             if (actionVerifier.isPathIllegal(res, targetDirectory)) {
                 return;
@@ -45,13 +47,19 @@ module.exports = function (app) {
             response["error"] = false;
             var directory = global.fileStorage + "/" + targetDirectory + "/";
             try {
-                fs.watch(directory, function(eventType, filename) {
-                    try {
-                        res.send(response);
-                    } catch (err) {
-                        // TODO: figure out why this errors even if the request has been sent successfully
-                    }
-                });
+                var currentStats = fs.statSync(directory);
+                var timeDifference = currentStats.mtimeMs - requestTimestamp;
+                if (timeDifference > 0) {
+                    res.send(response);
+                } else {
+                    fs.watch(directory, function(eventType, filename) {
+                        try {
+                            res.send(response);
+                        } catch (err) {
+                            // TODO: figure out why this errors even if the request has been sent successfully
+                        }
+                    });
+                }
             } catch (err) {
                 response["error"] = true;
                 res.send(response);
