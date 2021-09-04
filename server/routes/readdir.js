@@ -53,11 +53,8 @@ module.exports = function (app) {
                     res.send(response);
                 } else {
                     fs.watch(directory, function(eventType, filename) {
-                        try {
-                            res.send(response);
-                        } catch (err) {
-                            // TODO: figure out why this errors even if the request has been sent successfully
-                        }
+                        res.send(response);
+                        this.close();
                     });
                 }
             } catch (err) {
