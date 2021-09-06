@@ -96,6 +96,9 @@ class SessionHandler {
                             }
 
                             if (fileList.length <= 0) {
+                                if (!handler.directoryChanging) {
+                                    handler.watchCurrentDirectory();
+                                }
                                 handler.directoryChanging = false;
                             }
 
@@ -103,8 +106,6 @@ class SessionHandler {
                             if (currentDirectoryDiv.classList.contains("current-directory-text-loading")) {
                                 currentDirectoryDiv.classList.remove("current-directory-text-loading");
                             }
-
-                            handler.watchCurrentDirectory();
                         };
 
                         if (JSON.stringify(handler.lastFileList) != JSON.stringify(fileList)) {
@@ -149,7 +150,6 @@ class SessionHandler {
         this.currentDirectory = directory;
         this.directoryChanging = true;
         document.getElementById("current-directory-text").classList.add("current-directory-text-loading");
-        this.generateItemViews();
         this.watchCurrentDirectory();
     }
 

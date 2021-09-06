@@ -60,7 +60,6 @@ window.onload = function() {
         request.send(formData);
 
         document.getElementById("directory-name-box").value = "";
-        sessionHandler.generateItemViews();
     };
 
     document.getElementById("confirm-upload-file-button").onclick = function () {
