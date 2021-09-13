@@ -1,5 +1,5 @@
 function log(level, text) {
-    console.log("[" + level + "]: " + text);
+    console.log(new Date().toISOString() + " [" + level + "]: " + text);
 }
 
 module.exports = {
