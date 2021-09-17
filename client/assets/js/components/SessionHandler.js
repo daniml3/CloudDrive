@@ -56,6 +56,7 @@ class SessionHandler {
                                 handler.goToLogin();
                             }, 1500);
                         }
+                        handler.directoryChanging = false
                         handler.enterDirectory("/");
                     } else if (request.status != 200) {
                         document.getElementById("error-message").innerHTML = "Failed to connect to the server";
