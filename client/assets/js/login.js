@@ -10,7 +10,34 @@ var themeHandler = document.themeHandler;
 
 var animator = new Animator();
 
+function performLogin() {
+    var username = document.getElementById("username-input").value;
+    var password = document.getElementById("password-input").value;
+    var longevitySeconds = document.getElementById("session-longevity").value;
+    var statusText = document.getElementById("login-status-text");
+
+    if (!(username && password)) {
+        statusText.innerHTML = "Missing credentials";
+    } else {
+        statusText.innerHTML = "Verifying credentials";
+        authHandler.login(username, password, longevitySeconds, function(loggedIn) {
+            if (loggedIn) {
+                statusText.innerHTML = "Redirecting";
+                animator.fade(document.body, 0, 0.05, function() {
+                    sessionHandler.goToMain();
+                });
+            } else {
+                statusText.innerHTML = "Invalid credentials";
+            }
+        });
+    }
+};
+
 window.onload = function() {
+    var usernameInput = document.getElementById("username-input");
+    var passwordInput = document.getElementById("password-input");
+    var inputList = [usernameInput, passwordInput];
+
     themeHandler.configureCurrentTheme();
     sessionHandler.init(true);
     authHandler.init(true);
@@ -29,26 +56,12 @@ window.onload = function() {
         $("#preferences-dialog").modal("hide");
     };
 
-    document.getElementById("login-button").onclick = function() {
-        var username = document.getElementById("username-input").value;
-        var password = document.getElementById("password-input").value;
-        var longevitySeconds = document.getElementById("session-longevity").value;
-        var statusText = document.getElementById("login-status-text");
-
-        if (!(username && password)) {
-            statusText.innerHTML = "Missing credentials";
-        } else {
-            statusText.innerHTML = "Verifying credentials";
-            authHandler.login(username, password, longevitySeconds, function(loggedIn) {
-                if (loggedIn) {
-                    statusText.innerHTML = "Redirecting";
-                    animator.fade(document.body, 0, 0.05, function() {
-                        sessionHandler.goToMain();
-                    });
-                } else {
-                    statusText.innerHTML = "Invalid credentials";
-                }
-            });
-        }
-    };
+    document.getElementById("login-button").onclick = performLogin;
+    for (var i = 0; i < inputList.length; i++) {
+        inputList[i].addEventListener("keyup", function(event) {
+            if (event.which == 13) {
+                performLogin();
+            }
+        });
+    }
 };
