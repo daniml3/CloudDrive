@@ -2,6 +2,7 @@
   color: #808080;
   font-family: inherit;
   width: fit-content;
+  width: -moz-max-content;
   font-size: 36px;
   font-weight: 600;
   background-color: var(--color-main);
