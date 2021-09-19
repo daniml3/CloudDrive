@@ -31,6 +31,10 @@
   transform: scale(0.95);
 }
 
+.material-button-static:active {
+  transform: none;
+}
+
 .file-item {
   width: 150px;
   border-radius: 15px;
