@@ -139,7 +139,7 @@ class SessionHandler {
     }
 
     APICallWithToken(route, token) {
-        return this.serverAddress + route + "?sessionToken=" + token;
+        return encodeURI(this.serverAddress + route + "?sessionToken=" + token);
     }
 
     enterDirectory(directory) {
