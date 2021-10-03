@@ -3,6 +3,7 @@
   --color-main-text: #000000;
   --color-main-shadow: #444444;
   --header-background: #F5F5F5;
+  --white-black-icon-invert: 0%;
 }
 
 body {
@@ -68,4 +69,8 @@ input[type=text] {
 
 .fill-available {
   width: -webkit-fill-available;
+}
+
+.white-black-icon {
+  filter: invert(var(--white-black-icon-invert));
 }

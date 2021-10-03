@@ -60,6 +60,7 @@ class FileItem extends MaterialButton {
         };
 
         this.setIcon("assets/img/" + (isFile ? "file.svg" : "folder.svg"));
+        this.childIcon.classList.add("white-black-icon");
         this.sessionHandler.fileButtonList.push(this);
     }
 
