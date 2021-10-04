@@ -1,10 +1,10 @@
 .app-name {
-  color: #808080;
+  color: var(--text-color);
   font-family: inherit;
   width: fit-content;
   width: -moz-max-content;
   font-size: 36px;
-  font-weight: 600;
+  font-weight: 500;
   background-color: var(--color-main);
   border-radius: 30px;
   padding: 10px;
