@@ -1,0 +1,13 @@
+2021-10-09T23:27:53.204Z [INFO]: Successfully loaded the auth config
+2021-10-09T23:27:53.212Z [INFO]: Loading route delete.js
+2021-10-09T23:27:53.219Z [INFO]: Loading route download.js
+2021-10-09T23:27:53.221Z [INFO]: Loading route mkdir.js
+2021-10-09T23:27:53.223Z [INFO]: Loading route move.js
+2021-10-09T23:27:53.225Z [INFO]: Loading route readdir.js
+2021-10-09T23:27:53.228Z [INFO]: Loading route session.js
+2021-10-09T23:27:53.230Z [INFO]: Loading route upload.js
+2021-10-09T23:27:53.234Z [INFO]: We are live on 8088
+2021-10-09T23:27:53.234Z [INFO]: Storage directory at /storage/file_storage/
+2021-10-09T23:27:53.235Z [INFO]: Temporal storage directory at /tmp/clouddrive_tmp/
+2021-10-09T23:27:53.235Z [INFO]: API version 1.1
+2021-10-09T23:28:48.601Z [INFO]: Generated the session token 392f350eca... with a longevity of 3600000
