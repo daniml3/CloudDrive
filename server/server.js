@@ -29,6 +29,10 @@ try {
     logger.LOG(logger.INFO, "Cleaned the temporal files directory");
 } catch (err) {}
 
+try {
+    fs.unlinkSync(logger.LOG_PATH);
+} catch (err) {}
+
 var authConfigFile = process.env.CLOUDDRIVE_AUTH_CONFIG || __dirname + "/" + "../authConfig.json";
 try {
     credentialManager.parseConfig(JSON.parse(fs.readFileSync(authConfigFile, "utf8")));
