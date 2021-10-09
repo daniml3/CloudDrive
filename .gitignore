@@ -5,3 +5,4 @@ server/temporal/
 
 start.sh
 authConfig.json
+last-log.txt
