@@ -2,7 +2,7 @@
 // The backend will handle the file reconstruction
 class UploadHandler {
     constructor (file, sessionHandler) {
-        this.chunkSize = 50 * 1000 * 1000; // 50MB
+        this.chunkSize = 10 * 1000 * 1000; // 10MB
         this.start = 0;
         this.file = file;
     }
