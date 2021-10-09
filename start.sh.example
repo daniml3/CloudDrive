@@ -13,6 +13,9 @@ export CLOUDDRIVE_TEMP_STORAGE=/tmp/clouddrive_tmp/
 
 # ---- END OF THE CONFIGURATION SECTION
 
+export CD_WORKING_DIRECTORY=$(dirname $(readlink -f "$0"))
+cd $CD_WORKING_DIRECTORY
+
 if [[ ! -d "server" ]]; then
     echo "Missing server directory"
     exit 1
