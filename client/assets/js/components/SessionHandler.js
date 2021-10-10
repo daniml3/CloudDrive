@@ -49,7 +49,9 @@ class SessionHandler {
                 if (true) {
                     var response = (request.status == 200) ? JSON.parse(request.responseText) : {};
                     if (request.status == 200 && response["error"]) {
-                        document.getElementById("error-message").innerHTML = response["errorMessage"];
+                        var errorMessage = response["errorMessage"];
+                        errorMessage += "(" + handler.errorCodeToMessage(response["errorCode"]) + ")";
+                        document.getElementById("error-message").innerHTML = errorMessage;
                         $("#error-dialog").modal("show");
                         if (response["denied"]) {
                             window.setTimeout(function () {
@@ -227,5 +229,14 @@ class SessionHandler {
 
     goToLogin() {
         window.location.replace("login");
+    }
+
+    errorCodeToMessage(errorCode) {
+        switch (errorCode) {
+            case "ENOENT":
+                return "No such file or directory";
+            default:
+                return "Unknown error";
+        }
     }
 }

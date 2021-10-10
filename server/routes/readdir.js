@@ -28,7 +28,8 @@ module.exports = function (app) {
                 response["parentAvailable"] = (targetDirectory != "/");
             } catch (err) {
                 response["error"] = true;
-                response["errorMessage"] = "Error while listing the directory (" + directory + err.code + ")";
+                response["errorCode"] = err.code;
+                response["errorMessage"] = "Error while listing the directory";;
             }
 
             res.send(response);
