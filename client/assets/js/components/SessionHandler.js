@@ -61,8 +61,6 @@ class SessionHandler {
                         handler.directoryChanging = false
                         handler.enterDirectory("/");
                     } else if (request.status != 200) {
-                        document.getElementById("error-message").innerHTML = "Failed to connect to the server";
-                        $("#error-dialog").modal("show");
                         handler.directoryChanging = false;
                     } else {
                         var fileList = response["fileList"];
@@ -210,9 +208,9 @@ class SessionHandler {
                             handler.goToMain();
                         }, 2000);
                         break;
+                    default:
+                       handler.watchCurrentDirectory();
                 }
-
-                handler.watchCurrentDirectory();
             }
         };
 
