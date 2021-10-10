@@ -2,11 +2,13 @@ document.sessionHandler = new SessionHandler();
 document.authHandler = new AuthHandler();
 document.cookieHandler = new CookieHandler();
 document.themeHandler = new ThemeHandler();
+document.dimmer = new Dimmer();
 
 var sessionHandler = document.sessionHandler;
 var authHandler = document.authHandler;
 var cookieHandler = document.cookieHandler;
 var themeHandler = document.themeHandler;
+var dimmer = document.dimmer;
 
 var animator = new Animator();
 
@@ -19,17 +21,21 @@ function performLogin() {
     if (!(username && password)) {
         statusText.innerHTML = "Missing credentials";
     } else {
+        dimmer.applyDim(true);
         statusText.innerHTML = "Verifying credentials";
-        authHandler.login(username, password, longevitySeconds, function(loggedIn) {
-            if (loggedIn) {
-                statusText.innerHTML = "Redirecting";
-                animator.fade(document.body, 0, 0.05, function() {
-                    sessionHandler.goToMain();
-                });
-            } else {
-                statusText.innerHTML = "Invalid credentials";
-            }
-        });
+        setTimeout(function() {
+            authHandler.login(username, password, longevitySeconds, function(loggedIn) {
+                dimmer.resetDim();
+                if (loggedIn) {
+                    statusText.innerHTML = "Redirecting";
+                    animator.fade(document.body, 0, 0.05, function() {
+                        sessionHandler.goToMain();
+                    });
+                } else {
+                    statusText.innerHTML = "Invalid credentials";
+                }
+            });
+        }, 500);
     }
 };
 

@@ -74,3 +74,15 @@ input[type=text] {
 .white-black-icon {
   filter: invert(var(--white-black-icon-invert));
 }
+
+.dimlayer {
+    height:100%;
+    width:100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    background-color: #000000;
+    transition: opacity 0.5s;
+    opacity: 0;
+}
