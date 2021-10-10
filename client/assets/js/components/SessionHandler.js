@@ -200,9 +200,6 @@ class SessionHandler {
         request.onreadystatechange = function () {
             if (request.readyState === XMLHttpRequest.DONE && request.status != 0) {
                 switch (request.status) {
-                    case 200:
-                        handler.generateItemViews();
-                        break;
                     case 502:
                     case 503:
                     case 504:
