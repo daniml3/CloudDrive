@@ -6,8 +6,6 @@ var logger = require("./utils/logger.js");
 
 var app = express();
 
-const apiVersion = 1.1;
-
 global.port = process.env.CLOUDDRIVE_PORT || 3000;
 global.fileStorage = process.env.CLOUDDRIVE_STORAGE ||  __dirname + "/" + "./files/";
 global.tempFileStorage = process.env.CLOUDDRIVE_TEMP_STORAGE || __dirname + "/" + "./temporal/";
@@ -19,7 +17,6 @@ app.listen(global.port, () => {
     logger.LOG(logger.INFO, "We are live on " + port);
     logger.LOG(logger.INFO, "Storage directory at " + global.fileStorage);
     logger.LOG(logger.INFO, "Temporal storage directory at " + global.tempFileStorage);
-    logger.LOG(logger.INFO, "API version " + apiVersion);
 });
 
 app.use(express.static("../client/", {extensions: ["html"]}));
