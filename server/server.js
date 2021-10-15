@@ -10,6 +10,8 @@ global.port = process.env.CLOUDDRIVE_PORT || 3000;
 global.fileStorage = process.env.CLOUDDRIVE_STORAGE ||  __dirname + "/" + "./files/";
 global.tempFileStorage = process.env.CLOUDDRIVE_TEMP_STORAGE || __dirname + "/" + "./temporal/";
 
+global.ERR_NO_PERMISSION = "EACCES";
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 

@@ -20,7 +20,8 @@ function verifyTokenInternal(req, res, next, temporalToken, filePath) {
 
     response["error"] = true;
     response["denied"] = true;
-    response["errorMessage"] = "Invalid credentials" + (temporalToken ? "" : " (session invalid or expired)");
+    response["errorCode"] = global.ERR_NO_PERMISSION;
+    response["errorMessage"] = "Invalid credentials";
     res.send(response);
 }
 

@@ -230,6 +230,8 @@ class SessionHandler {
         switch (errorCode) {
             case "ENOENT":
                 return "No such file or directory";
+            case "EACCES":
+                return "Session expired or invalid";
             default:
                 return "Unknown error";
         }
