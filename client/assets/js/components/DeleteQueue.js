@@ -29,6 +29,7 @@ class DeleteQueue {
                  deleteQueue.index++;
                  if (deleteQueue.index >= deleteQueue.queue.length) {
                      deleteQueue.index = 0;
+                     document.sessionHandler.watchCurrentDirectory();
                  } else {
                      deleteQueue.deleteNext();
                  }

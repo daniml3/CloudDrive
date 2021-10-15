@@ -58,6 +58,8 @@ class CutHandler {
                 handler.uncut(element.elementPath);
                 if (Object.values(handler.elementList).length > 0) {
                     handler.pasteNext();
+                } else {
+                    document.sessionHandler.watchCurrentDirectory();
                 }
             }
         }
