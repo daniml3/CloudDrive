@@ -76,10 +76,14 @@ class AuthHandler {
         var sessionHandler = document.sessionHandler;
         var handler = this;
 
+        document.dimmer.applyDim(true);
         request.open("POST", sessionHandler.APICall("/revokesessiontoken"));
         request.onreadystatechange = function () {
             if (request.readyState === XMLHttpRequest.DONE) {
-                sessionHandler.goToLogin();
+                document.dimmer.resetDim();
+                setTimeout(function() {
+                    sessionHandler.goToLogin();
+                }, 500);
             }
         };
 

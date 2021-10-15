@@ -4,6 +4,7 @@ document.authHandler = new AuthHandler();
 document.cookieHandler = new CookieHandler();
 document.themeHandler = new ThemeHandler();
 document.cutHandler = new CutHandler();
+document.dimmer = new Dimmer();
 
 var sessionHandler = document.sessionHandler;
 var deleteQueue = document.deleteQueue;
@@ -11,6 +12,7 @@ var authHandler = document.authHandler;
 var cookieHandler = document.cookieHandler;
 var themeHandler = document.themeHandler;
 var cutHandler = document.cutHandler;
+var dimmer = document.dimmer;
 
 var animator = new Animator();
 
