@@ -1,8 +1,7 @@
 :root {
   --color-main: #FFFFFF;
   --color-main-text: #000000;
-  --color-main-shadow: #444444;
-  --header-background: #F5F5F5;
+  --header-background: #F0F0F0;
   --white-black-icon-invert: 0%;
 }
 
@@ -37,16 +36,18 @@ input[type=text] {
     user-select: none;
 }
 
-.rounded-status-text {
+.status-text {
   color: var(--color-main-text);
   font-family: inherit;
   font-size: 16px;
   background-color: var(--color-main);
-  border-radius: 30px;
+  border-radius: 10px;
   padding: 10px;
   margin-top: 8px;
   overflow-wrap: break-word;
-  box-shadow: 0px 0px 5px 0.25px var(--color-main-shadow);
+  border-width: 0.5px;
+  border-style: solid;
+  border-color: #909090;
 }
 
 .align-end {

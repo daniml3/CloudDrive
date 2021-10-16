@@ -8,5 +8,9 @@
 }
 
 .modal-content  {
-  border-radius: 15px;
+  border-radius: 10px;
+}
+
+.btn-close  {
+  filter: invert(var(--white-black-icon-invert));
 }

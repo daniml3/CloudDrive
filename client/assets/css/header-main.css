@@ -5,11 +5,10 @@
 .header-column {
   background: var(--header-background);
   border-width: 0px;
-  border-radius: 30px;
+  border-radius: 10px;
   padding-top: 10px;
   padding-bottom: 10px;
   margin-top: 10px;
-  box-shadow: 0px 0px 5px 0.25px var(--color-main-shadow);
 }
 
 @media all and (max-width: 800px) {
