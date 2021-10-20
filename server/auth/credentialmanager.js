@@ -17,29 +17,17 @@ function getRandomNumber(maximum) {
     return Math.round(Math.random() * maximum);
 }
 
-function generateReferenceToken(reference) {
-    var numberToken = 0;
-    for (var i = 0; i < reference.length; i++) {
-        var character = reference[i];
-        numberToken += (character.charCodeAt(0) * getRandomNumber(randomNumberMax));
-    }
-
-    return numberToken;
-}
-
 function hash(string) {
    return crypto.createHash(passwordHash).update(string).digest("hex");
 }
 
-function getToken(reference) {
-    var referenceToken = generateReferenceToken(reference);
-    var timestampToken = (Date.now() / 1000) * getRandomNumber(randomNumberMax);
-    return hash((referenceToken & timestampToken).toString());
+function getToken() {
+    return crypto.randomBytes(32).toString("hex");
 }
 
 function generateToken(username, password, longevity) {
     if (insecure) {
-        return getToken("INSECURE");
+        return getToken();
     }
 
     if (longevity > maxSessionTokenLongevity) {
@@ -54,13 +42,13 @@ function generateToken(username, password, longevity) {
         return null;
     }
 
-    return generateTokenInternal(username, longevity, tokenList, tokensToRevoke);
+    return generateTokenInternal(longevity, tokenList, tokensToRevoke);
 }
 
 function generateTemporalToken(token, longevity, filePath) {
     var tokenData = {};
     if (insecure) {
-        return getToken("INSECURE");
+        return getToken();
     }
 
     if (longevity > maxTemporalTokenLongevity) {
@@ -71,7 +59,7 @@ function generateTemporalToken(token, longevity, filePath) {
         return null;
     }
 
-    var generatedToken = getToken(token);
+    var generatedToken = getToken();
     tokenData["token"] = generatedToken;
     tokenData["filePath"] = filePath;
 
@@ -89,8 +77,8 @@ function generateTemporalToken(token, longevity, filePath) {
     return generatedToken;
 }
 
-function generateTokenInternal(reference, longevity, tokenArray, revokeList) {
-    var generatedToken = getToken(reference);
+function generateTokenInternal(longevity, tokenArray, revokeList) {
+    var generatedToken = getToken();
     tokenArray.push(generatedToken);
     if (longevity > 0) {
         setTimeout(function() {
