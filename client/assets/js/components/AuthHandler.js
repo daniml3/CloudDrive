@@ -20,12 +20,6 @@ class AuthHandler {
                 var response = JSON.parse(request.responseText);
                 handler.loggedIn = response["isValid"];
 
-                if (!handler.loggedIn && !isLoginPage) {
-                    sessionHandler.goToLogin();
-                } else if (handler.loggedIn && isLoginPage){
-                    sessionHandler.goToMain();
-                }
-
                 if (handler.loggedIn) {
                     for (var i = 0; i < handler.loggedInCallbacks.length; i++) {
                         handler.loggedInCallbacks[i]();
@@ -82,7 +76,7 @@ class AuthHandler {
             if (request.readyState === XMLHttpRequest.DONE) {
                 document.dimmer.resetDim();
                 setTimeout(function() {
-                    sessionHandler.goToLogin();
+                    sessionHandler.reload();
                 }, 500);
             }
         };

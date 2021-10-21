@@ -3,6 +3,8 @@ var multiparty = require("multiparty");
 var fs = require("fs");
 var credentialManager = require("./auth/credentialmanager.js");
 var logger = require("./utils/logger.js");
+var path = require("path");
+var nocache = require('nocache');
 
 var app = express();
 
@@ -21,7 +23,14 @@ app.listen(global.port, () => {
     logger.LOG(logger.INFO, "Temporal storage directory at " + global.tempFileStorage);
 });
 
-app.use(express.static("../client/", {extensions: ["html"]}));
+app.use(nocache());
+app.use("/", function(req, res, next) {
+    var index = "index.html";
+    if (!credentialManager.isTokenValid(credentialManager.getSessionToken(req))) {
+        index = "login.html";
+    }
+    express.static("../client/", {index: index})(req, res, next);
+});
 
 try {
     fs.rmdirSync(global.tempFileStorage, {recursive: true});
