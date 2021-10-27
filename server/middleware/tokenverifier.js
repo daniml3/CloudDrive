@@ -25,7 +25,7 @@ function verifyTokenInternal(req, res, next, temporalToken, filePath, token) {
 }
 
 function verifyToken(req, res, next) {
-    verifyTokenInternal(req, res, next, false, null, req.query.sessionToken);
+    verifyTokenInternal(req, res, next, false, null, credentialManager.getSessionToken(req));
 };
 
 function verifyTemporalToken(req, res, next) {

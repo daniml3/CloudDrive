@@ -55,7 +55,7 @@ class SessionHandler {
                         $("#error-dialog").modal("show");
                         if (response["denied"]) {
                             window.setTimeout(function () {
-                                handler.goToLogin();
+                                handler.reload();
                             }, 1500);
                         }
                         handler.directoryChanging = false
@@ -135,14 +135,6 @@ class SessionHandler {
     }
 
     APICall(route) {
-        return this.APICallWithToken(route, document.authHandler.getToken());
-    }
-
-    APICallWithToken(route, token) {
-        return encodeURI(this.APICallWithoutToken(route) + "?sessionToken=" + token);
-    }
-
-    APICallWithoutToken(route) {
         return encodeURI(this.serverAddress + route);
     }
 
@@ -209,7 +201,7 @@ class SessionHandler {
                             "Server connection error (" + request.status + "), refreshing session";
                         $("#error-dialog").modal("show");
                         setTimeout(function() {
-                            handler.goToMain();
+                            handler.reload();
                         }, 2000);
                         break;
                     default:
@@ -222,12 +214,8 @@ class SessionHandler {
         request.send(formData);
     }
 
-    goToMain() {
-        window.location.replace(this.getServerAddress());
-    }
-
-    goToLogin() {
-        window.location.replace("login");
+    reload() {
+        window.location.reload(true);
     }
 
     errorCodeToMessage(errorCode) {
