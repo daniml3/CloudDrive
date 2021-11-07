@@ -28,9 +28,6 @@
   border-radius: 50%;
 }
 
-.slider:hover {
-}
-
 input:checked + .slider {
   background-color: #6495ED;
 }

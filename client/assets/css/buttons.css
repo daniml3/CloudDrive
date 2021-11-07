@@ -7,12 +7,6 @@
   font-weight: 600;
   transition: transform 0.25s ease, background-color 0.3s ease;
   margin: 10px;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
   user-select: none;
   border-width: 0.5px;
   border-style: solid;
@@ -20,20 +14,13 @@
 }
 
 .material-button > p {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
-.material-button:hover {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .material-button:active {
   transform: scale(0.95);
-}
-
-.material-button-static:active {
-  transform: none;
 }
 
 .file-item {
@@ -46,26 +33,8 @@
 
 .file-item-container {
   text-align: center;
-  padding-left: 20%;
-  padding-right: 20%;
 }
 
 .cut-element {
   background: #FF4422EE;
-  border-radius:10px;
-  padding: 10px;
-  white-space: normal;
-  overflow-wrap: break-word;
 }
-
-@media all and (max-width: 800px) {
-  .file-item-container {
-    padding-left: 0px;
-    padding-right: 0px;
-  }
-
-  .material-button {
-    white-space: normal;
-  }
-}
-

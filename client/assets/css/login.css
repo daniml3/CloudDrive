@@ -13,22 +13,3 @@
   padding-top: 25px;
   padding-bottom: 25px;
 }
-
-.login-container {
-  padding: 0px;
-}
-
-@media all and (max-width: 800px) {
-  .login-dialog {
-    width: auto;
-    padding-bottom: 0px;
-    margin: 10px;
-    margin-top: 20%;
-  }
-}
-
-@media all and (max-width: 200px) {
-  .login-dialog {
-    width: 100%;
-  }
-}

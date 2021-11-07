@@ -6,13 +6,6 @@
   background: var(--header-background);
   border-width: 0px;
   border-radius: 10px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  margin-top: 10px;
-}
-
-@media all and (max-width: 800px) {
-  .header-column {
-    padding: 10px;
-  }
+  padding: 10px;
+  margin: 10px 0px 0px 0px;
 }

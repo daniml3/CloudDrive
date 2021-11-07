@@ -1,4 +1,4 @@
-:root {
+ls:root {
   --color-main: #FFFFFF;
   --color-main-text: #000000;
   --header-background: #F0F0F0;
@@ -10,10 +10,6 @@ body {
   color: var(--color-main-text);
 }
 
-.max-width {
-  max-width: 100%;
-}
-
 .wrap-content {
   max-width: min-content;
 }
@@ -23,17 +19,11 @@ input[type=text] {
 }
 
 .unclickable {
-    pointer-events: none;
+  pointer-events: none;
 }
 
 .unselectable, .header-button-container, .app-name {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -o-user-select: none;
-    user-select: none;
+  user-select: none;
 }
 
 .status-text {
@@ -54,13 +44,9 @@ input[type=text] {
   margin-left: auto;
 }
 
-.padding-10 {
-  padding: 10px;
-}
-
 .constant-fade-in-out, .current-directory-text-loading {
-    animation: constant-fade 2s infinite;
-    animation-duration: 2s;
+  animation: constant-fade 2s infinite;
+  animation-duration: 2s;
 }
 
 @keyframes constant-fade {
