@@ -4,8 +4,7 @@ var logger = require("../utils/logger.js");
 
 const neededFormKeys = ["sessionToken"];
 
-function verifyTokenInternal(req, res, next, temporalToken, filePath) {
-    var token = req.query.sessionToken;
+function verifyTokenInternal(req, res, next, temporalToken, filePath, token) {
     var isTokenValid;
     var response = {};
 
@@ -26,7 +25,7 @@ function verifyTokenInternal(req, res, next, temporalToken, filePath) {
 }
 
 function verifyToken(req, res, next) {
-    verifyTokenInternal(req, res, next, false, null);
+    verifyTokenInternal(req, res, next, false, null, credentialManager.getSessionToken(req));
 };
 
 function verifyTemporalToken(req, res, next) {
@@ -34,16 +33,14 @@ function verifyTemporalToken(req, res, next) {
     var splittedPath = req.originalUrl.split("/");
 
     for (var i = 0; i < splittedPath.length; i++) {
-        if (i >= 2) {
+        if (i >= 3) {
             filePath += "/";
             filePath += splittedPath[i];
         }
     }
 
-    filePath = filePath.split("?")[0];
     filePath = decodeURI(filePath);
-
-    verifyTokenInternal(req, res, next, true, filePath);
+    verifyTokenInternal(req, res, next, true, filePath, req.params.token);
 };
 
 module.exports = {

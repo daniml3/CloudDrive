@@ -29,7 +29,7 @@ function performLogin() {
                 if (loggedIn) {
                     statusText.innerHTML = "Redirecting";
                     animator.fade(document.body, 0, 0.05, function() {
-                        sessionHandler.goToMain();
+                        sessionHandler.reload();
                     });
                 } else {
                     statusText.innerHTML = "Invalid credentials";

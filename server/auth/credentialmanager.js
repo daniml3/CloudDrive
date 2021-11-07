@@ -1,5 +1,6 @@
 var crypto = require("crypto");
 var logger = require("../utils/logger.js");
+var cookieHandler = require("../utils/cookiehandler.js");
 
 const randomNumberMax = 1000;
 const maxSessionTokenLongevity = 48 * 60 * 1000 * 60; // 48 hours
@@ -171,6 +172,10 @@ function isInsecure() {
     return insecure;
 }
 
+function getSessionToken(req) {
+    return cookieHandler.getCookie(req.headers.cookie, "CloudDriveSessionToken");
+}
+
 module.exports = {
     generateToken: generateToken,
     generateTemporalToken: generateTemporalToken,
@@ -178,5 +183,6 @@ module.exports = {
     isTemporalTokenValid: isTemporalTokenValid,
     revokeToken: revokeToken,
     parseConfig: parseConfig,
-    isInsecure: isInsecure
+    isInsecure: isInsecure,
+    getSessionToken : getSessionToken
 };
