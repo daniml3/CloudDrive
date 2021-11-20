@@ -109,6 +109,11 @@ class SessionHandler {
                             if (currentDirectoryDiv.classList.contains("current-directory-text-loading")) {
                                 currentDirectoryDiv.classList.remove("current-directory-text-loading");
                             }
+
+                            var freeSpaceBar = document.getElementById("free-space-bar");
+                            var freeSpace = response["freeSpace"];
+                            var totalSpace = response["totalSpace"];
+                            freeSpaceBar.style.width = 100 - ((freeSpace * 100) / totalSpace) + "%";
                         };
 
                         if (JSON.stringify(handler.lastFileList) != JSON.stringify(fileList)) {

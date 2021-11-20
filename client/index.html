@@ -162,13 +162,20 @@
 
     <!-- Main screen -->
     <div class="container">
-        <div class="col-md-12 header-column">
+        <div class="col header-column">
+            <div class="row">
+                <h1 class="app-name">CloudDrive</h1>
+            </div>
             <div class="row">
                 <div class="col">
-                    <h1 class="app-name">CloudDrive</h1>
-                </div>
-                <div class="col">
                     <p class="status-text" id="current-directory-text"></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="progress">
+                       <div class="progress-bar" role="progressbar" style="width: 0%;" id="free-space-bar"></div>
+                    </div>
                 </div>
             </div>
             <div class="row header-button-container">
