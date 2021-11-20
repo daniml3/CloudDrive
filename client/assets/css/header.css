@@ -1,20 +1,3 @@
-.app-name {
-  color: var(--text-color);
-  font-family: inherit;
-  width: fit-content;
-  width: -moz-max-content;
-  font-size: 30px;
-  font-weight: 500;
-  background-color: var(--color-main);
-  border-radius: 10px;
-  padding: 10px;
-  margin: auto;
-  margin-bottom: 10px;
-  border-width: 0.5px;
-  border-style: solid;
-  border-color: #909090;
-}
-
 .header-column {
   background: var(--header-background);
   border-width: 0px;
