@@ -56,6 +56,6 @@ class UploadHandler {
     }
 
     setProgress(progress) {
-        document.getElementById("upload-progress-bar").value = Math.round(progress);
+        document.getElementById("upload-progress-bar").style.width = Math.round(progress)+ "%";
     }
 }
