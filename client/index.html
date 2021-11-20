@@ -56,7 +56,24 @@
                         </select>
                     </div>
                     <button class="material-button" id="genenrate-file-url-button">Copy temporal URL</button>
+                    <button class="material-button" id="rename-file-button">Rename</button>
                     <button class="material-button" id="download-file-button">Download</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rename file dialog -->
+    <div class="modal fade" role="dialog" tabindex="-1" id="rename-file-dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="file-contextual-menu-title">Rename file</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-footer">
+                    <input id="target-rename-filename" class="form-control">
+                    <button class="material-button" id="rename-button">Rename</button>
                 </div>
             </div>
         </div>

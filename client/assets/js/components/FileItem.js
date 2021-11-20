@@ -9,10 +9,11 @@ class FileItem extends MaterialButton {
         this.object.selected = false;
         this.sessionHandler = sessionHandler;
         this.isFile = isFile;
-        this.directory = sessionHandler.currentDirectory
+        this.directory = sessionHandler.currentDirectory;
         this.absoluteDirectory = this.directory + this.content;
 
         var item = this;
+        var itemDirectory = this.directory;
 
         this.object.onclick = function() {
             var clickTimestamp = Date.now();
@@ -28,6 +29,33 @@ class FileItem extends MaterialButton {
                         document.authHandler.getTemporalToken(longevitySeconds, item.absoluteDirectory, function (token) {
                             window.open(sessionHandler.APICall("/download/" + token + item.absoluteDirectory));
                         });
+                    };
+
+                    var renameFilenameInput = document.getElementById("target-rename-filename");
+                    renameFilenameInput.value = item.content;
+                    document.getElementById("rename-file-button").onclick = function() {
+                        $("#rename-file-dialog").modal("show");
+                        $("#file-contextual-menu").modal("hide");
+                    };
+                    document.getElementById("rename-button").onclick = function() {
+                        var targetFilename = renameFilenameInput.value;
+                        if (targetFilename != "") {
+                            var formData = new FormData();
+                            var request = new XMLHttpRequest();
+                            var originPath = item.absoluteDirectory;
+                            var targetPath = itemDirectory + targetFilename;
+
+                            formData.append("originPath", originPath);
+                            formData.append("targetPath", targetPath);
+                            request.open("POST", sessionHandler.APICall("/move"));
+                            request.onreadystatechange = function() {
+                                if (request.readyState === XMLHttpRequest.DONE) {
+                                    $("#rename-file-dialog").modal("hide");
+                                }
+                            }
+
+                            request.send(formData);
+                        }
                     };
 
                     var genFileUrlButton = document.getElementById("genenrate-file-url-button");
