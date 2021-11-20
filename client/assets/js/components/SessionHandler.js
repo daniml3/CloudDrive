@@ -1,3 +1,5 @@
+const skipHideModalList = ["upload-file-dialog", "file-clipboard-dialog"];
+
 class SessionHandler {
     cosntructor() {
         this.createEmptyFileButtonList();
@@ -205,7 +207,14 @@ class SessionHandler {
                         }, 2000);
                         break;
                     default:
-                       handler.watchCurrentDirectory();
+                        var modalList = $(".modal");
+                            for (var i = 0; i < modalList.length; i++) {
+                            var modal = modalList[i];
+                            if (!skipHideModalList.includes(modal.id)) {
+                                $("#" + modal.id).modal("hide");
+                            }
+                        }
+                        handler.watchCurrentDirectory();
                 }
             }
         };
