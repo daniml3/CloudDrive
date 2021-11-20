@@ -4,6 +4,7 @@ var formparser = require("../middleware/formparser.js");
 var tokenVerifier = require("../middleware/tokenverifier.js");
 var actionVerifier = require("../middleware/actionverifier.js");
 
+const checkDiskSpace = require('check-disk-space').default;
 const neededFormKeys1 = ["targetDirectory"];
 const neededFormKeys2 = ["targetDirectory", "requestTimestamp"];
 
@@ -18,6 +19,8 @@ module.exports = function (app) {
 
             response["error"] = false;
             response["fileList"] = [];
+            response["freeSpace"] = 0;
+            response["totalSpace"] = 0;
             var directory = global.fileStorage + "/" + targetDirectory + "/";
             try {
                 var list = fs.readdirSync(directory);
@@ -32,7 +35,12 @@ module.exports = function (app) {
                 response["errorMessage"] = "Error while listing the directory";;
             }
 
-            res.send(response);
+            checkDiskSpace(targetDirectory).then((diskSpace) => {
+                console.log(diskSpace);
+                response["freeSpace"] = diskSpace.free;
+                response["totalSpace"] = diskSpace.size;
+                res.send(response);
+            });
         });
     });
 
