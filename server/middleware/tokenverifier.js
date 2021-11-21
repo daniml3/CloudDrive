@@ -8,7 +8,7 @@ function verifyTokenInternal(req, res, next, temporalToken, filePath, token) {
     var isTokenValid;
     var response = {};
 
-    if (token) {
+    if (token || credentialManager.isInsecure()) {
         isTokenValid = temporalToken ?
             credentialManager.isTemporalTokenValid(token, filePath) : credentialManager.isTokenValid(token);
         if (isTokenValid) {
