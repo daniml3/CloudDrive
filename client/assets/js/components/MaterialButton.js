@@ -8,11 +8,11 @@ class MaterialButton {
         this.text = content;
 
         this.childIcon = document.createElement("img");
-        this.childIcon.className = "unclickable unselectable";
+        this.childIcon.className = "unselectable";
         this.object.append(this.childIcon);
 
         this.childText = document.createElement("p");
-        this.childText.className = "unclickable unselectable";
+        this.childText.className = "unselectable";
 
         this.childText.innerHTML = this.text;
         this.childText.after(this.childIcon);

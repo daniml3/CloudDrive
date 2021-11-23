@@ -1,16 +1,12 @@
 .material-button {
   background-color: var(--color-main);
   color: var(--color-main-text);
-  border-radius: 10px;
-  border-color: transparent;
-  padding: 10px;
   font-weight: 600;
   transition: transform 0.25s ease, background-color 0.3s ease;
   margin: 10px;
-  user-select: none;
-  border-width: 0.5px;
-  border-style: solid;
-  border-color: #909090;
+  padding: 10px;
+  border-radius: 10px;
+  border-width: 0px;
 }
 
 .material-button > p {
@@ -25,14 +21,11 @@
 
 .file-item {
   width: 150px;
+  background-color: var(--color-secondary);
 }
 
 .file-item-selected {
   background-color: #6495ED;
-}
-
-.file-item-container {
-  text-align: center;
 }
 
 .cut-element {

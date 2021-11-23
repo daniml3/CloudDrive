@@ -1,8 +1,8 @@
 class ThemeHandler {
     constructor() {
-        this.lightDarkProperties = ["color-main", "color-main-text", "header-background", "white-black-icon-invert"];
-        this.lightModeValues = ["#FFFFFF", "#000000", "#F0F0F0", "0"];
-        this.darkModeValues = ["#262626", "#FFFFFF", "#191919", "100"];
+        this.lightDarkProperties = ["color-main", "color-secondary", "color-main-text", "white-black-icon-invert"];
+        this.lightModeValues = ["#FFFFFF", "#F0F0F0", "#000000", "0"];
+        this.darkModeValues = ["#262626", "#191919", "#FFFFFF", "100"];
         this.isDark = false;
         this.darkModeEnabledCookie = "DarkModeEnabled";
     }

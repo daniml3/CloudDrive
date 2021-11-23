@@ -1,7 +1,7 @@
 ls:root {
   --color-main: #FFFFFF;
+  --color-secondary: #F0F0F0;
   --color-main-text: #000000;
-  --header-background: #F0F0F0;
   --white-black-icon-invert: 0%;
 }
 
@@ -10,52 +10,29 @@ body {
   color: var(--color-main-text);
 }
 
-.wrap-content {
-  max-width: min-content;
-}
-
-input[type=text] {
-  width: 100%;
-}
-
-.unclickable {
-  pointer-events: none;
-}
-
-.unselectable, .header-button-container, .app-name {
+.unselectable, .header-button-container {
   user-select: none;
 }
 
 .status-text {
   color: var(--color-main-text);
   font-family: inherit;
-  font-size: 16px;
   background-color: var(--color-main);
   border-radius: 10px;
   padding: 10px;
   margin-top: 8px;
   overflow-wrap: break-word;
   border-width: 0.5px;
-  border-style: solid;
   border-color: #909090;
 }
 
-.align-end {
-  margin-left: auto;
-}
-
-.constant-fade-in-out, .current-directory-text-loading {
+.constant-fade-in-out {
   animation: constant-fade 2s infinite;
-  animation-duration: 2s;
 }
 
 @keyframes constant-fade {
   0%,100% { opacity: 1 }
   50% { opacity: 0.25 }
-}
-
-.fill-available {
-  width: -webkit-fill-available;
 }
 
 .white-black-icon {

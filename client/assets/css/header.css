@@ -1,6 +1,5 @@
 .header-column {
-  background: var(--header-background);
-  border-width: 0px;
+  background: var(--color-secondary);
   border-radius 30px: 
   padding: 10px;
 }

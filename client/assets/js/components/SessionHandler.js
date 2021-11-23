@@ -106,8 +106,8 @@ class SessionHandler {
                             }
 
                             currentDirectoryDiv.innerHTML = handler.currentDirectory;
-                            if (currentDirectoryDiv.classList.contains("current-directory-text-loading")) {
-                                currentDirectoryDiv.classList.remove("current-directory-text-loading");
+                            if (currentDirectoryDiv.classList.contains("constant-fade-in-out")) {
+                                currentDirectoryDiv.classList.remove("constant-fade-in-out");
                             }
 
                             var freeSpaceBar = document.getElementById("free-space-bar");
@@ -161,7 +161,7 @@ class SessionHandler {
         console.log("Entering to the directory " + directory);
         this.currentDirectory = directory;
         this.directoryChanging = true;
-        document.getElementById("current-directory-text").classList.add("current-directory-text-loading");
+        document.getElementById("current-directory-text").classList.add("constant-fade-in-out");
         this.watchCurrentDirectory();
     }
 
