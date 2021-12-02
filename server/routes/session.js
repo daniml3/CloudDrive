@@ -67,7 +67,7 @@ module.exports = function (app) {
         });
     });
 
-    app.get("/isinsecure", function (req, res) {
+    app.get("/context", function (req, res) {
         var response = {};
         response["isInsecure"] = credentialManager.isInsecure();
         res.send(response);

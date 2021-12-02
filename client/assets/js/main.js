@@ -5,6 +5,7 @@ document.cookieHandler = new CookieHandler();
 document.themeHandler = new ThemeHandler();
 document.cutHandler = new CutHandler();
 document.dimmer = new Dimmer();
+document.context = new Context();
 
 var sessionHandler = document.sessionHandler;
 var deleteQueue = document.deleteQueue;
@@ -13,6 +14,7 @@ var cookieHandler = document.cookieHandler;
 var themeHandler = document.themeHandler;
 var cutHandler = document.cutHandler;
 var dimmer = document.dimmer;
+var context = document.context;
 
 var animator = new Animator();
 
@@ -24,6 +26,7 @@ document.onreadystatechange = function() {
 
 // Setup the session, the window buttons and generate the items
 window.onload = function() {
+    context.init();
     sessionHandler.init();
     authHandler.addLoggedInCallback(function() {
         sessionHandler.startFileItemLoop();
@@ -120,16 +123,8 @@ window.onload = function() {
         cutHandler.pasteHere();
     };
 
-    var request = new XMLHttpRequest();
-    request.open("GET", sessionHandler.APICall("/isinsecure"));
-    request.onreadystatechange = function () {
-        if (request.readyState === XMLHttpRequest.DONE) {
-            var response = request.responseText;
-            if (response["isInsecure"]) {
-                authHandler.login("INSECURE", "INSECURE");
-                sessionHandler.startFileItemLoop();
-            }
-        }
-    };
-    request.send();
+    if (context.isInsecure) {
+        authHandler.login("INSECURE", "INSECURE");
+        sessionHandler.startFileItemLoop();
+    }
 };

@@ -1,6 +1,9 @@
 const skipHideModalList = ["upload-file-dialog", "file-clipboard-dialog"];
 
 class SessionHandler {
+
+    serverAddress = "";
+
     cosntructor() {
         this.createEmptyFileButtonList();
         this.lastFileList = null;
@@ -11,7 +14,6 @@ class SessionHandler {
         var splittedAddress = window.location.href.split("/");
         var parsedAddress = false;
         var handler = this;
-        this.serverAddress = "";
         this.createEmptyFileButtonList();
         for (var i = 0; i < splittedAddress.length; i++) {
             switch (i) {
