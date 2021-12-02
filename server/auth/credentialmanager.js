@@ -3,7 +3,7 @@ var logger = require("../utils/logger.js");
 var cookieHandler = require("../utils/cookiehandler.js");
 
 const randomNumberMax = 1000;
-const maxSessionTokenLongevity = 48 * 60 * 1000 * 60; // 48 hours
+const maxSessionTokenLongevity = 7 * 24 * 60 * 1000 * 60; // 1 week
 const maxTemporalTokenLongevity = 24 * 60 * 1000 * 60; // 24 hours
 
 var tokenList = [];
