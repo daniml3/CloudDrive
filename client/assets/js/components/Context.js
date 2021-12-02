@@ -1,6 +1,7 @@
 class Context {
 
     isInsecure = false;
+    chunkSize = 90 * 1000 * 1000;
 
     constructor() {
     }
@@ -14,6 +15,7 @@ class Context {
             if (request.readyState === XMLHttpRequest.DONE) {
                 var response = JSON.parse(request.responseText);
                 context.isInsecure = response["isInsecure"];
+                context.chunkSize = response["chunkSize"];
             }
         };
 

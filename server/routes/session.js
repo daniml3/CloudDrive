@@ -70,6 +70,7 @@ module.exports = function (app) {
     app.get("/context", function (req, res) {
         var response = {};
         response["isInsecure"] = credentialManager.isInsecure();
+        response["chunkSize"] = global.chunkSize;
         res.send(response);
     });
 };

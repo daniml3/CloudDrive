@@ -11,6 +11,7 @@ var app = express();
 global.port = process.env.CLOUDDRIVE_PORT || 3000;
 global.fileStorage = process.env.CLOUDDRIVE_STORAGE ||  __dirname + "/" + "./files/";
 global.tempFileStorage = process.env.CLOUDDRIVE_TEMP_STORAGE || __dirname + "/" + "./temporal/";
+global.chunkSize = process.env.CLOUDDRIVE_CHUNK_SIZE || 90 * 1000 * 1000;
 
 global.ERR_NO_PERMISSION = "EACCES";
 

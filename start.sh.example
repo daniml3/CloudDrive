@@ -6,10 +6,13 @@
 # CLOUDDRIVE_STORAGE -> the directory to use as storage
 # CLOUDDRIVE_TEMP_STORAGE -> the directory to use as temporal storage while
 #                            receiving the file chunks
+# CLOUDDRIVE_CHUNK_SIZE -> the chunk size that will be used when uploading files,
+#                          expressed in bytes
 
 export CLOUDDRIVE_PORT=3333
 export CLOUDDRIVE_STORAGE=/storage/
 export CLOUDDRIVE_TEMP_STORAGE=/tmp/clouddrive_tmp/
+export CLOUDDRIVE_CHUNK_SIZE=$(( 90 * 1000 * 1000 ))
 
 # ---- END OF THE CONFIGURATION SECTION
 
